@@ -196,7 +196,7 @@ namespace SUNBEAR.Data.Slimes
                     "This could be considered the same for their usual attacking.", true
                 );
                 PediaHelper.AddSlimepediaSection(sunBearEntry,
-                    "\r\nSun Bear plorts are a rather mysterious type of plort. " +
+                    "Sun Bear plorts are a rather mysterious type of plort. " +
                     "On slime forums, individuals have claimed that these plorts can enhance food growth and reduce decay. " +
                     "Scientists have yet to validate these claims and are keeping their research on the plort confidential. " +
                     "It is hoped that more information about the plort will be made available soon.", false, true

@@ -55,7 +55,7 @@ namespace SUNBEAR.Data.Largos
                         Material primaryMat = primaryDef.AppearancesDefault[0].Structures.TryGetBody().DefaultMaterials[0];
                         Material secondaryMat = secondaryDef.AppearancesDefault[0].Structures.TryGetBody().DefaultMaterials[0];
 
-                        Material largoMaterial = UnityEngine.Object.Instantiate(secondaryMat);
+                        /*Material largoMaterial = UnityEngine.Object.Instantiate(secondaryMat);
                         largoMaterial.hideFlags |= HideFlags.HideAndDontSave;
                         largoMaterial.name = largoAppearance.name + "_Body";
                         largoMaterial.SetTexture("_ColorMask", LocalAssets.maskSunBearMulticolorGreen);
@@ -66,18 +66,18 @@ namespace SUNBEAR.Data.Largos
                         List<string> shaderKeywords = largoMaterial.GetShaderKeywords().ToList();
                         shaderKeywords.Add("_BODYCOLORING_MULTI");
                         shaderKeywords.Remove("_BODYCOLORING_DEFAULT");
-                        largoMaterial.SetShaderKeywords(shaderKeywords.ToArray());
+                        largoMaterial.SetShaderKeywords(shaderKeywords.ToArray());*/
 
-                        Material antennaeMaterial = UnityEngine.Object.Instantiate(secondaryDef.AppearancesDefault[0].Structures.FirstOrDefault(x =>
+                        /*Material antennaeMaterial = UnityEngine.Object.Instantiate(secondaryDef.AppearancesDefault[0].Structures.FirstOrDefault(x =>
                             x.Element.Type == SlimeAppearanceElement.ElementType.FACE_ATTACH ||
                             x.Element.Name.Contains("Antennae", StringComparison.OrdinalIgnoreCase)).DefaultMaterials[0]);
                         antennaeMaterial.hideFlags |= HideFlags.HideAndDontSave;
                         antennaeMaterial.name = largoAppearance.name + "_Antennae";
                         antennaeMaterial.SetColor("_TopColor", secondaryMat.GetColor("_TopColor"));
                         antennaeMaterial.SetColor("_MiddleColor", secondaryMat.GetColor("_MiddleColor"));
-                        antennaeMaterial.SetColor("_BottomColor", secondaryMat.GetColor("_BottomColor"));
+                        antennaeMaterial.SetColor("_BottomColor", secondaryMat.GetColor("_BottomColor"));*/
 
-                        /*Material wingsMaterial = UnityEngine.Object.Instantiate(secondaryDef.AppearancesDefault[0].Structures.TryGetWings().DefaultMaterials[0]);
+                        Material wingsMaterial = UnityEngine.Object.Instantiate(secondaryDef.AppearancesDefault[0].Structures.TryGetWings().DefaultMaterials[0]);
                         wingsMaterial.hideFlags |= HideFlags.HideAndDontSave;
                         wingsMaterial.name = largoAppearance.name + "_Wings";
                         wingsMaterial.SetColor("_RedTopColor", primaryMat.GetColor("_RedTopColor"));
@@ -88,11 +88,14 @@ namespace SUNBEAR.Data.Largos
                         wingsMaterial.SetColor("_GreenBottomColor", Color.gray);
                         wingsMaterial.SetColor("_BlueTopColor", primaryMat.GetColor("_GreenTopColor"));
                         wingsMaterial.SetColor("_BlueMiddleColor", primaryMat.GetColor("_GreenMiddleColor"));
-                        wingsMaterial.SetColor("_BlueBottomColor", primaryMat.GetColor("_GreenBottomColor"));*/
+                        wingsMaterial.SetColor("_BlueBottomColor", primaryMat.GetColor("_GreenBottomColor"));
 
-                        largoAppearance.Structures[0].DefaultMaterials[0] = largoMaterial;
-                        largoAppearance.Structures[2].DefaultMaterials[0] = secondaryMat;
-                        largoAppearance.Structures.TryGetWings().DefaultMaterials[0] = secondaryDef.AppearancesDefault[0].Structures.TryGetWings().DefaultMaterials[0];
+                        // largoAppearance.Structures[0].DefaultMaterials[0] = largoMaterial;
+                        // largoAppearance.Structures[2].DefaultMaterials[0] = secondaryMat;
+                        largoAppearance.Structures.FirstOrDefault(x =>
+                            x.Element.Type == SlimeAppearanceElement.ElementType.FACE_ATTACH ||
+                            x.Element.Name.Contains("Antennae", StringComparison.OrdinalIgnoreCase)).DefaultMaterials[0] = primaryDef.AppearancesDefault[0].Structures[2].DefaultMaterials[0];
+                        largoAppearance.Structures.TryGetWings().DefaultMaterials[0] = wingsMaterial;
 
                         largoAppearance._splatColor = secondaryDef.AppearancesDefault[0].SplatColor;
                         largoAppearance._colorPalette = secondaryDef.AppearancesDefault[0].ColorPalette;
