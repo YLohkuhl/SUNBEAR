@@ -1,0 +1,91 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+	<DebugType>embedded</DebugType>
+	<Title>SUNBEAR</Title>
+	<Authors>FruitsyOG</Authors>
+	<VersionPrefix>1.0.0</VersionPrefix>
+	<Copyright>Copyright @ FruitsyOG 2023</Copyright>
+	<RepositoryUrl>https://github.com/ItzBlueBerries/SUNBEAR</RepositoryUrl>
+	<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+	<FileVersion>$(VersionPrefix)</FileVersion>
+	<Description>"SUNBEAR" is a mod about a slime that is based on the real-life animal named "Sun Bear".</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Components\Archived\DestroyActorAfterTwoHours.cs" />
+    <Compile Remove="Components\Archived\SpawnFoodForCubs.cs" />
+    <Compile Remove="Components\Archived\SunBearEnvironmental.cs" />
+    <Compile Remove="Components\Archived\SunBearIsolation.cs" />
+    <Compile Remove="Components\Archived\SunBearTentacleBite.cs" />
+    <Compile Remove="Data\Foods\Archived\Sunberry.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Files\ABs\sb_images" />
+    <None Remove="Files\ABs\sb_models" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Files\ABs\sb_models" />
+    <EmbeddedResource Include="Files\ABs\sb_images" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Archived\DestroyActorAfterTwoHours.cs" />
+    <None Include="Components\Archived\SpawnFoodForCubs.cs" />
+    <None Include="Components\Archived\SunBearEnvironmental.cs" />
+    <None Include="Components\Archived\SunBearIsolation.cs" />
+    <None Include="Components\Archived\SunBearTentacleBite.cs" />
+    <None Include="Data\Foods\Archived\Sunberry.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\net6\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppDOTween">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\Il2CppDOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MelonLoader">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\net6\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Localization">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\Unity.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\..\..\System\SteamLibrary\steamapps\common\Slime Rancher 2\MelonLoader\Il2CppAssemblies\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
