@@ -97,9 +97,6 @@ namespace SUNBEAR.Data.Largos
                             x.Element.Name.Contains("Antennae", StringComparison.OrdinalIgnoreCase)).DefaultMaterials[0] = primaryDef.AppearancesDefault[0].Structures[2].DefaultMaterials[0];
                         largoAppearance.Structures.TryGetWings().DefaultMaterials[0] = wingsMaterial;
 
-                        largoAppearance._splatColor = secondaryDef.AppearancesDefault[0].SplatColor;
-                        largoAppearance._colorPalette = secondaryDef.AppearancesDefault[0].ColorPalette;
-
                         largoDefinition.AppearancesDefault = new SlimeAppearance[] { largoAppearance };
                         largoDefinition.prefab.hideFlags |= HideFlags.HideAndDontSave;
                         #endregion

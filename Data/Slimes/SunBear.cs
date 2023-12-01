@@ -330,8 +330,16 @@ namespace SUNBEAR.Data.Slimes
                             sunBearPlort.prefab = PrefabUtils.CopyPrefab(Get<IdentifiableType>("PinkPlort").prefab);
                             sunBearPlort.prefab.hideFlags |= HideFlags.HideAndDontSave;
                             sunBearPlort.prefab.name = "plortSunBear";
+                            sunBearPlort.prefab.AddComponent<SunBearPlortonomics>();
                             sunBearPlort.prefab.GetComponent<Identifiable>().identType = sunBearPlort;
                             sunBearPlort.prefab.GetComponent<MeshRenderer>().sharedMaterial = plortMaterial;
+
+                            SECTR_PointSource pointSource = sunBearPlort.prefab.AddComponent<SECTR_PointSource>();
+                            pointSource.pitch = 1;
+                            pointSource.Loop = false;
+                            pointSource.PlayOnStart = false;
+                            pointSource.RestartLoopsOnEnabled = false;
+                            pointSource.Cue = Get<SECTR_AudioCue>("SiloReward");
 
                             // REGISTRY
                             plortsToPatch.Add(new MarketUI.PlortEntry() { identType = sunBearPlort });
@@ -343,12 +351,15 @@ namespace SUNBEAR.Data.Slimes
                             });
 
                             // EATMAPS
-                            foreach (IdentifiableType largoType in Get<IdentifiableTypeGroup>("LargoGroup").memberTypes)
+                            foreach (IdentifiableTypeGroup largoGroup in Get<IdentifiableTypeGroup>("LargoGroup").memberGroups)
                             {
-                                SlimeDefinition largoDef = largoType.Cast<SlimeDefinition>();
-                                if (largoDef == null || largoDef.Diet == null || !largoDef.IsLargo)
-                                    continue;
-                                largoDef.Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, largoDef);
+                                foreach (IdentifiableType largoType in largoGroup.memberTypes)
+                                {
+                                    SlimeDefinition largoDef = largoType.Cast<SlimeDefinition>();
+                                    if (largoDef == null || largoDef.Diet == null || !largoDef.IsLargo)
+                                        continue;
+                                    largoDef.Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, largoDef);
+                                }
                             }
                             #endregion
 

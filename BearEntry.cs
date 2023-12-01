@@ -5,6 +5,10 @@ using MelonLoader;
 using SUNBEAR;
 using SUNBEAR.Data.Slimes;
 using SUNBEAR.Data;
+using Il2CppMonomiPark.SlimeRancher.Pedia;
+using Il2CppInterop.Runtime;
+using SUNBEAR.Components;
+using UnityEngine.SceneManagement;
 // using SUNBEAR.Components;
 // using SUNBEAR.Data.Foods;
 
@@ -15,14 +19,6 @@ namespace SUNBEAR
 {
     public class BearEntry : MelonMod
     {
-
-        /*
-         *
-         * CHECK FOR ANY LARGOS TO CHANGE THE SPLAT COLOR FOR, LIKE RINGTAIL. (COMPLETE)
-         * ANALYZE BEHAVIORS IN AWAKE, ETC DUE TO POTENTIAL LAG WHEN SPAWNING, ETC.
-         *
-         */
-
         public override void OnInitializeMelon()
         {
             // -- OTHER
@@ -68,7 +64,17 @@ namespace SUNBEAR
             {
                 case "GameCore":
                     {
+                        Get<IdentifiablePediaEntry>("WildHoneyCraft")._template = Get<PediaTemplate>("HighlightedResourcePediaTemplate");
                         Get<SlimeDefinition>("Tarr").Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, Get<SlimeDefinition>("Tarr"));
+                        break;
+                    }
+                case "zoneCore":
+                    {
+                        if (!GameObject.Find("SunBearGlobalStatistics"))
+                        {
+                            var globalStatistics = new GameObject("SunBearGlobalStatistics", Il2CppType.Of<SunBearGlobalStatistics>());
+                            SceneManager.MoveGameObjectToScene(globalStatistics, SceneManager.GetSceneByName("zoneCore"));
+                        }
                         break;
                     }
             }
