@@ -92,7 +92,6 @@ namespace SUNBEAR.Assist
                 SlimeDefinition2 = secondaryDef
             }, largoDefinition);
 
-            MelonLogger.Msg(slimeDefinitions._largoDefinitionByBasePlorts == null);
             slimeDefinitions._largoDefinitionByBasePlorts.TryAdd(new SlimeDefinitions.PlortPair()
             {
                 Plort1 = primaryDef.Diet.ProduceIdents[0],

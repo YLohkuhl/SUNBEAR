@@ -20,7 +20,12 @@ namespace SUNBEAR.Harmony
             {
                 var identPediaEntry = pediaEntry.TryCast<IdentifiablePediaEntry>();
                 if (identPediaEntry)
+                {
                     __instance._identDict.TryAdd(identPediaEntry.IdentifiableType, identPediaEntry);
+                    if (SunBearPreferences.IsCasualMode() && SunBearPreferences.IsCasualCubs())
+                        if (identPediaEntry.IdentifiableType == sunBearSlime)
+                            __instance._identDict.TryAdd(cubSunBearSlime, identPediaEntry);
+                }
             }
         }
     }
