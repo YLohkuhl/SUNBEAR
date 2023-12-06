@@ -14,12 +14,14 @@ namespace SUNBEAR
         private static readonly string CategoryIdentifier = "SunBearPreferences";
         private static readonly string CasualIdentifier = "Casual Mode";
         private static readonly string CasualWSavageIdentifier = "Casual Mode (With Savage)";
+        private static readonly string CasualCubsIdentifier = "Casual Cubs";
         // private static readonly string MixedIdentifier = "Mixed Mode";
         private static readonly string RealisticIdentifier = "Realistic Mode";
         private static readonly string RealisticWOSavageIdentifier = "Realistic Mode (Without Savage)";
 
         private static MelonPreferences_Category SunBearPrefs;
         private static MelonPreferences_Entry<bool> casualMode;
+        private static MelonPreferences_Entry<bool> casualCubs;
         private static MelonPreferences_Entry<bool> casualWSavageMode;
         // private static MelonPreferences_Entry<bool> mixedMode;
         private static MelonPreferences_Entry<bool> realisticMode;
@@ -32,8 +34,10 @@ namespace SUNBEAR
             casualMode = SunBearPrefs.CreateEntry(CasualIdentifier, false, null, 
                 "Just for the cuteness and nobody is attacking anybody." +
                 "\nLike the largos, they can still harvest honey but have the ability to reproduce and provide for cubs." +
+                "\n\"Casual Cubs\" is optional to enable more \"casual\" cubs. This includes vaccing, feeding, etc as you cannot normally do with them but they will not produce plorts when fed." +
                 "\n\"Casual Mode (With Savage)\" is optional to enable being savage with agitation while in casual mode."
             );
+            casualCubs = SunBearPrefs.CreateEntry(CasualCubsIdentifier, false);
             casualWSavageMode = SunBearPrefs.CreateEntry(CasualWSavageIdentifier, false);
             // mixedMode = SunBearPrefs.CreateEntry(MixedIdentifier, true);
             realisticMode = SunBearPrefs.CreateEntry(RealisticIdentifier, false, null,
@@ -49,6 +53,8 @@ namespace SUNBEAR
 
         public static bool IsCasualMode() => casualMode.Value;
 
+        public static bool IsCasualCubs() => casualCubs.Value;
+
         public static bool IsCasualWSavageMode() => casualWSavageMode.Value;
 
         // public static bool IsMixedMode() => mixedMode.Value;
@@ -59,6 +65,12 @@ namespace SUNBEAR
 
         public static void EnableModesIfSavage(bool saveToFile = true, bool printmsg = false)
         {
+            if (IsCasualCubs())
+            {
+                if (!IsCasualMode())
+                    MelonPreferences.SetEntryValue(CategoryIdentifier, CasualIdentifier, true);
+            }
+
             if (IsCasualWSavageMode())
             {
                 if (!IsCasualMode())
@@ -80,18 +92,20 @@ namespace SUNBEAR
             // No you may not have multiple modes and I will make sure of that lol
             if (IsCasualMode())
             {
-                if (IsRealisticWOSavageMode())
-                    MelonPreferences.SetEntryValue(CategoryIdentifier, RealisticWOSavageIdentifier, false);
                 if (IsRealisticMode())
                     MelonPreferences.SetEntryValue(CategoryIdentifier, RealisticIdentifier, false);
+                if (IsRealisticWOSavageMode())
+                    MelonPreferences.SetEntryValue(CategoryIdentifier, RealisticWOSavageIdentifier, false);
             }
 
             if (IsRealisticMode())
             {
-                if (IsCasualWSavageMode())
-                    MelonPreferences.SetEntryValue(CategoryIdentifier, CasualWSavageIdentifier, false);
                 if (IsCasualMode())
                     MelonPreferences.SetEntryValue(CategoryIdentifier, CasualIdentifier, false);
+                if (IsCasualCubs())
+                    MelonPreferences.SetEntryValue(CategoryIdentifier, CasualCubsIdentifier, false);
+                if (IsCasualWSavageMode())
+                    MelonPreferences.SetEntryValue(CategoryIdentifier, CasualWSavageIdentifier, false);
             }
 
             if (saveToFile)

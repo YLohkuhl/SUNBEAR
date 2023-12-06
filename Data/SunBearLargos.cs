@@ -47,10 +47,10 @@ namespace SUNBEAR.Data
             foreach (SlimeDefinition baseSlime in baseSlimeDefinitions)
             {
                 var sunBearSlimeLargo = LargoHelper.CreateIdentifiable(SunBear.sunBearSlime, baseSlime, Color.Lerp(SunBear.sunBearPalette[0], baseSlime.AppearancesDefault[0].SplatColor, 0.5f));
-                sunBearLargoDefinitions.Add(sunBearSlimeLargo);
+                sunBearLargoDefinitions.TryAdd(sunBearSlimeLargo);
             }
 
-            feralSunBearLargoDefinitions.Add(Get<SlimeDefinition>("SunBearHunter"));
+            feralSunBearLargoDefinitions.TryAdd(Get<SlimeDefinition>("SunBearHunter"));
         }
 
         public static void Load(string sceneName)

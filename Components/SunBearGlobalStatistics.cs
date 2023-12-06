@@ -10,6 +10,11 @@ namespace SUNBEAR.Components
     [RegisterTypeInIl2Cpp]
     internal class SunBearGlobalStatistics : MonoBehaviour
     {
+        internal class Statistic
+        {
+
+        }
+
         private const float PLORTONOMICS_WAIT_TIME = 24;
 
         private static TimeDirector timeDir;
@@ -17,11 +22,12 @@ namespace SUNBEAR.Components
 
         public static bool IsPlortonomicsUsable { get; private set; }
 
-        void Awake()
+        static SunBearGlobalStatistics()
         {
-            timeDir = SceneContext.Instance.TimeDirector;
             IsPlortonomicsUsable = true;
         }
+
+        void Awake() => timeDir = SceneContext.Instance.TimeDirector;
 
         void Update()
         {

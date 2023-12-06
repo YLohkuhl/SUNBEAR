@@ -1,4 +1,6 @@
-﻿using MelonLoader;
+﻿using Il2CppAssets.Script.Util.Extensions;
+using Il2CppSystem.Linq;
+using MelonLoader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,25 +13,22 @@ namespace SUNBEAR.Components
     [RegisterTypeInIl2Cpp]
     internal class SunBearPlortonomics : SRBehaviour
     {
+        private Rigidbody rigidBody;
+
         private LandPlot targetPlot;
         private SpawnResource targetResource;
         private bool hasActivated;
         private bool isDescending;
 
-        public GameObject DestroyFX;
         public float growthChance = 0.02f;
         public float lowerSpeed = 1;
 
-        void Awake()
-        {
-            if (!DestroyFX)
-                DestroyFX = Get<GameObject>("FX Stars");
-        }
+        void Awake() => rigidBody = GetComponent<Rigidbody>();
 
         void Update()
         {
-            /*if (IsDescending())
-                DescendPlort();*/
+            if (IsDescending())
+                DescendPlort();
         }
 
         void OnCollisionEnter(Collision collision)
@@ -58,7 +57,7 @@ namespace SUNBEAR.Components
             if (spawnJoints.Length < 1)
                 return;
 
-            if (spawnJoints.All(x => x.connectedBody == null || x.connectedBody?.GetComponent<ResourceCycle>()?._model?.state == ResourceCycle.State.RIPE))
+            if (spawnJoints.All(x => x.connectedBody.IsNull() || x.connectedBody?.GetComponent<ResourceCycle>()?._model?.state == ResourceCycle.State.RIPE))
                 return;
 
             targetPlot = foundPlot;
@@ -66,33 +65,36 @@ namespace SUNBEAR.Components
             ImmediatelyRipenAll();
         }
 
-        // public bool IsDescending() => isDescending;
+        public bool IsDescending() => isDescending;
 
         public bool HasActivated() => hasActivated;
 
-        public void DestroyPlort()
+        public void DestroyPlort() => Destroyer.DestroyActor(gameObject, "SunBearPlortonomics.DestroyPlort");
+
+        public void DescendPlort()
         {
-            SpawnAndPlayFX(DestroyFX, transform.position, Quaternion.identity);
-            Destroyer.DestroyActor(gameObject, "SunBearPlortonomics.DestroyPlort");
+            if (rigidBody.constraints != RigidbodyConstraints.FreezeAll)
+                rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            transform.position = transform.position - Vector3.up * lowerSpeed * Time.deltaTime;
         }
-
-        /*public void DescendPlort()
-        {
-            Vector3 position = transform.position - Vector3.up * lowerSpeed * Time.deltaTime;
-            transform.position = position;
-        }*/
-
+        
         public IEnumerator DestroyOnlyAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
-            /*if (IsDescending())
-                isDescending = false;*/
+            if (IsDescending())
+                isDescending = false;
             DestroyPlort();
             yield break;
         }
 
-        public static LandPlot GetPlotIfLandPlot(GameObject gameObject)
+        public LandPlot GetPlotIfLandPlot(GameObject gameObject)
         {
+            if (!gameObject.name.Contains("Soil"))
+            {
+                if (!gameObject.name.Contains("Bed"))
+                    return null;
+            }
+
             if (!gameObject.GetComponent<LandPlot>())
             {
                 if (gameObject.GetComponentInParent<LandPlot>())
@@ -101,6 +103,7 @@ namespace SUNBEAR.Components
             }
             else if (gameObject.GetComponent<LandPlot>())
                 return gameObject.GetComponent<LandPlot>();
+
             return null;
         }
 
@@ -126,5 +129,54 @@ namespace SUNBEAR.Components
             SunBearGlobalStatistics.SetPlortonomicsUsable(false);
             MelonCoroutines.Start(DestroyOnlyAfterDelay(1));
         }
+
+        /*public void TransitionSoil()
+        {
+            if (!targetPlot || !targetResource)
+                return;
+
+            if (transitioningSoil.Length < 1)
+            {
+                transitioningSoil.TryAdd(targetPlot.transform?.Find("Soil"));
+                foreach (Transform transform in targetResource.transform)
+                {
+                    if (!transform)
+                        continue;
+
+                    if (!transform.gameObject)
+                        continue;
+
+                    if (transform.name == "Bed")
+                        transitioningSoil.TryAdd(transform.Find("Dirt"));
+                }
+            }
+
+            if (originalSoilMaterials.Length < 1)
+            {
+                foreach (Transform transform in transitioningSoil)
+                {
+                    if (!transform)
+                        continue;
+
+                    if (!transform.gameObject)
+                        continue;
+
+                    originalSoilMaterials.TryAdd(transform.gameObject.GetComponent<MeshRenderer>()?.material);
+                }
+            }
+
+            foreach (Transform transform in transitioningSoil)
+            {
+                if (!transform)
+                    continue;
+
+                if (!transform.gameObject)
+                    continue;
+
+                float time = Mathf.PingPong(Time.time / 2, 1);
+                var material = transform.gameObject.GetComponent<MeshRenderer>().material;
+                transform.gameObject.GetComponent<MeshRenderer>()?.material?.Lerp(material, meshRenderer.material, time);
+            }
+        }*/
     }
 }

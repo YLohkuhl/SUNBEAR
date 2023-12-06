@@ -22,6 +22,8 @@
     <Compile Remove="Components\Archived\SunBearIsolation.cs" />
     <Compile Remove="Components\Archived\SunBearTentacleBite.cs" />
     <Compile Remove="Data\Foods\Archived\Sunberry.cs" />
+    <Compile Remove="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <Compile Remove="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +43,8 @@
     <None Include="Components\Archived\SunBearIsolation.cs" />
     <None Include="Components\Archived\SunBearTentacleBite.cs" />
     <None Include="Data\Foods\Archived\Sunberry.cs" />
+    <None Include="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <None Include="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
   </ItemGroup>
 
   <ItemGroup>

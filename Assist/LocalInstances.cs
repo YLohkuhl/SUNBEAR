@@ -1,4 +1,5 @@
 ﻿using Il2Cpp;
+using Il2CppMonomiPark.SlimeRancher;
 using Il2CppMonomiPark.SlimeRancher.Damage;
 using Il2CppMonomiPark.SlimeRancher.Pedia;
 using SUNBEAR.Assist;
@@ -31,6 +32,8 @@ namespace SUNBEAR
         internal static FearProfile sunBearSlimeFearProfile;
         internal static FearProfile fireSlimeSBAFearProfile;
         internal static FearProfile slimeStandardSBAFearProfile;
+
+        // internal static GameIconDefinition gameIconSlimeSunBear;
 
         internal static IdentifiableTypeGroup sunBearLargoGroup;
         internal static DamageSourceDefinition sunBearAttack;
@@ -80,22 +83,19 @@ namespace SUNBEAR
                         factsPediaPage.hideFlags |= HideFlags.HideAndDontSave;
                         */
 
+                        /* GAME ICON SLIME SUN BEAR
+                        gameIconSlimeSunBear = ScriptableObject.CreateInstance<GameIconDefinition>();
+                        gameIconSlimeSunBear.hideFlags |= HideFlags.HideAndDontSave;
+                        gameIconSlimeSunBear.name = "GameIconSlimeSunBear";
+                        gameIconSlimeSunBear.gameIcon = LocalAssets.iconSlimeSunBearSpr;
+                        gameIconSlimeSunBear.persistenceId = "gameIcon_sunBearSlime";
+                        Get<GameIconDefinitionCollection>("GameIconCollection").items.TryAdd(gameIconSlimeSunBear);*/
+
                         // SUN BEAR DAMAGE SOURCE
                         sunBearAttack = ScriptableObject.CreateInstance<DamageSourceDefinition>();
                         sunBearAttack.hideFlags |= HideFlags.HideAndDontSave;
                         sunBearAttack.name = "SunBearAttack";
                         sunBearAttack._logMessage = "SunBearAttack.Damage";
-
-                        // ENVIRONMENTAL EFFECT INDICATOR
-                        /*environmentalEffectIndicator = new GameObject("EnvironmentalEffectIndicator");
-                        environmentalEffectIndicator.Prefabitize();
-                        environmentalEffectIndicator.hideFlags |= HideFlags.HideAndDontSave;
-
-                        Material indicatorMaterial = UnityEngine.Object.Instantiate(Get<SlimeAppearance>("PhosphorDefault").Structures[0].DefaultMaterials[0]);
-                        indicatorMaterial.SetColor("_GlowTop", SunBear.sunBearPalette[2]);
-
-                        environmentalEffectIndicator.AddComponent<MeshFilter>().sharedMesh = GameObject.CreatePrimitive(PrimitiveType.Sphere).GetComponent<MeshFilter>().mesh;
-                        environmentalEffectIndicator.AddComponent<MeshRenderer>().sharedMaterial = indicatorMaterial;*/
 
                         // SUN BEAR FEAR PROFILE
                         sunBearSlimeFearProfile = UnityEngine.Object.Instantiate(Get<FearProfile>("slimeStandardFearProfile"));

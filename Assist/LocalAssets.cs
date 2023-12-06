@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MelonLoader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace SUNBEAR
         internal static Mesh gordoSunBearEars;
 
         // TEXTURE2D
+        internal static Texture2D loadingCharsSBA;
+        internal static Texture2D loadingCharsSBB;
         internal static Texture2D iconPlortSunBear;
         internal static Texture2D iconSlimeSunBear;
         internal static Texture2D iconGordoSunBear;
@@ -20,6 +23,13 @@ namespace SUNBEAR
         internal static Texture2D maskSunBearMulticolor;
         internal static Texture2D maskSunBearEarsMulticolor;
         internal static Texture2D maskSunBearMulticolorGreen;
+
+        // SPRITE
+        internal static Sprite loadingCharsSBASpr;
+        internal static Sprite loadingCharsSBBSpr;
+        internal static Sprite iconPlortSunBearSpr;
+        internal static Sprite iconSlimeSunBearSpr;
+        internal static Sprite iconGordoSunBearSpr;
 
         // LARGO TEXTURE2D
         // internal static Texture2D bodyStripesSunBear;
@@ -35,6 +45,14 @@ namespace SUNBEAR
         {
             switch (sceneName)
             {
+                case "SystemCore":
+                    {
+                        iconSlimeSunBear = AB.images.LoadAsset("iconSlimeSunBear").Cast<Texture2D>();
+                        iconSlimeSunBear.name = "iconSlimeSunBear";
+
+                        iconSlimeSunBearSpr = iconSlimeSunBear.ConvertToSprite();
+                        break;
+                    }
                 case "GameCore":
                     {
                         // MESH
@@ -42,8 +60,9 @@ namespace SUNBEAR
                         gordoSunBearEars = AB.models.LoadFromObject<MeshFilter>("gordo_sunbear_ears").sharedMesh;
 
                         // TEXTURE2D
+                        loadingCharsSBA = AB.images.LoadAsset("LoadingCharsSBA").Cast<Texture2D>();
+                        loadingCharsSBB = AB.images.LoadAsset("LoadingCharsSBB").Cast<Texture2D>();
                         iconPlortSunBear = AB.images.LoadAsset("iconPlortSunBear").Cast<Texture2D>();
-                        iconSlimeSunBear = AB.images.LoadAsset("iconSlimeSunBear").Cast<Texture2D>();
                         iconGordoSunBear = AB.images.LoadAsset("iconGordoSunBear").Cast<Texture2D>();
                         stripesSunBearPlort = AB.images.LoadAsset("stripes_sunBearPlort").Cast<Texture2D>();
                         maskSunBearMulticolor = AB.images.LoadAsset("mask_sunbear_multicolor").Cast<Texture2D>();
@@ -51,8 +70,16 @@ namespace SUNBEAR
                         maskSunBearMulticolorGreen = AB.images.LoadAsset("mask_sunbear_multicolor_green").Cast<Texture2D>();
 
                         iconPlortSunBear.name = "iconPlortSunBear";
-                        iconSlimeSunBear.name = "iconSlimeSunBear";
                         iconGordoSunBear.name = "iconGordoSunBear";
+
+                        loadingCharsSBA.hideFlags |= HideFlags.HideAndDontSave;
+                        loadingCharsSBB.hideFlags |= HideFlags.HideAndDontSave;
+
+                        // SPRITE
+                        loadingCharsSBASpr = loadingCharsSBA.ConvertToSprite();
+                        loadingCharsSBBSpr = loadingCharsSBB.ConvertToSprite();
+                        iconPlortSunBearSpr = iconPlortSunBear.ConvertToSprite();
+                        iconGordoSunBearSpr = iconGordoSunBear.ConvertToSprite();
 
                         // LARGO TEXTURE2D
                         // bodyStripesSunBear = AB.images.LoadAsset("body_stripes_sunBear").Cast<Texture2D>();

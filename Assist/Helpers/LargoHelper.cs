@@ -5,13 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Il2CppInterop.Runtime;
 using SUNBEAR.Data.Slimes;
-using Il2Cpp;
-using Harmony;
 using HarmonyLib;
 using Il2CppMonomiPark.SlimeRancher.World;
-using static SUNBEAR.HarmonyPatches.Localization;
-using Il2CppMonomiPark.SlimeRancher.Damage;
-using SUNBEAR.Data;
+using MelonLoader;
 
 namespace SUNBEAR.Assist
 {
@@ -23,6 +19,7 @@ namespace SUNBEAR.Assist
 
             largoDefinition.hideFlags |= HideFlags.HideAndDontSave;
             largoDefinition.name = primaryDefinition.name + secondaryDefinition.name;
+            largoDefinition.Name = largoDefinition.name;
             largoDefinition.IsLargo = true;
             largoDefinition.CanLargofy = false;
             largoDefinition.color = identifiableColor;
@@ -86,8 +83,7 @@ namespace SUNBEAR.Assist
             SlimeDefinitions slimeDefinitions = SRSingleton<GameContext>.Instance.SlimeDefinitions;
             SlimeAppearanceDirector slimeAppearanceDirector = Get<SlimeAppearanceDirector>("MainSlimeAppearanceDirector");
 
-            if (!slimeDefinitions.Slimes.FirstOrDefault(x => x == largoDefinition))
-                slimeDefinitions.Slimes = slimeDefinitions.Slimes.AddItem(largoDefinition).ToArray();
+            slimeDefinitions.Slimes = slimeDefinitions.Slimes.ToArray().TryAdd(largoDefinition);
             slimeDefinitions._slimeDefinitionsByIdentifiable.TryAdd(largoDefinition, largoDefinition);
 
             slimeDefinitions._largoDefinitionByBaseDefinitions.TryAdd(new SlimeDefinitions.SlimeDefinitionPair()
@@ -96,6 +92,7 @@ namespace SUNBEAR.Assist
                 SlimeDefinition2 = secondaryDef
             }, largoDefinition);
 
+            MelonLogger.Msg(slimeDefinitions._largoDefinitionByBasePlorts == null);
             slimeDefinitions._largoDefinitionByBasePlorts.TryAdd(new SlimeDefinitions.PlortPair()
             {
                 Plort1 = primaryDef.Diet.ProduceIdents[0],
@@ -111,7 +108,7 @@ namespace SUNBEAR.Assist
             // THIS IS ONLY MADE FOR SUN BEAR LARGOS
             SlimeDefinition primaryDef = largoDefinition.BaseSlimes[0];
             SlimeDefinition secondaryDef = largoDefinition.BaseSlimes[1];
-            largoDefinition.localizedName = LocalizationDirectorLoadTablePatch.AddTranslation("Actor", "l." + largoName.ToLower().Replace(" ", "_"), largoName);
+            largoDefinition.localizedName = GeneralizedHelper.CreateTranslation("Actor", largoDefinition.localizationSuffix, largoName);
 
             #region SUN_BEAR_LARGO
             // DEFINITION

@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 // using SUNBEAR.Components;
 // using SUNBEAR.Data.Foods;
 
-[assembly: MelonInfo(typeof(BearEntry), "SUNBEAR", "1.0.0", "FruitsyOG", "https://www.nexusmods.com/slimerancher2/mods/66")]
+[assembly: MelonInfo(typeof(BearEntry), "SUNBEAR", "1.1.0", "FruitsyOG", "https://www.nexusmods.com/slimerancher2/mods/66")]
 [assembly: MelonGame("MonomiPark", "SlimeRancher2")]
 [assembly: MelonColor(0, 254, 216, 177)]
 namespace SUNBEAR
@@ -66,6 +66,7 @@ namespace SUNBEAR
                     {
                         Get<IdentifiablePediaEntry>("WildHoneyCraft")._template = Get<PediaTemplate>("HighlightedResourcePediaTemplate");
                         Get<SlimeDefinition>("Tarr").Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, Get<SlimeDefinition>("Tarr"));
+                        // Get<ScriptedValueRangeOptionDefinition>("GameIcon")._maxValue = Get<GameIconDefinitionCollection>("GameIconCollection").Count - 1;
                         break;
                     }
                 case "zoneCore":

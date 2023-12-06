@@ -1,5 +1,7 @@
-﻿using Il2Cpp;
+﻿using HarmonyLib;
+using Il2Cpp;
 using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppMonomiPark.SlimeRancher.Slime;
 using SUNBEAR.Components;
 using System;
@@ -183,6 +185,33 @@ internal static class Extensions
         return Color.Lerp(color, Color.white, amount);
     }
 
+    public static Sprite ConvertToSprite(this Texture2D texture)
+    {
+        Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+        sprite.hideFlags = texture.hideFlags;
+        sprite.name = texture.name;
+        return sprite;
+    }
+
+    public static T[] TryAdd<T>(this T[] array, T item)
+    {
+        if (!array.Contains(item))
+            return array.AddToArray(item);
+        return array;
+    }
+
+    public static void TryAdd<T>(this ICollection<T> collection, T item)
+    {
+        if (!collection.Contains(item))
+            collection.Add(item);
+    }
+
+    public static void TryAdd<T>(this Il2CppSystem.Collections.Generic.List<T> list, T item)
+    {
+        if (!list.Contains(item))
+            list.Add(item);
+    }
+
     public static bool Contains(this string source, string toCheck, StringComparison comp)
     {
         return source?.IndexOf(toCheck, comp) >= 0;
@@ -194,7 +223,7 @@ internal static class Extensions
             list.Add(item);
     }
 
-    public static void AddRange<T>(this Il2CppSystem.Collections.Generic.List<T> list, Il2CppSystem.Collections.Generic.List<T> values)
+    public static void AddRange<T>(this Il2CppSystem.Collections.Generic.List<T> list, params T[] values)
     {
         foreach (T item in values)
             list.Add(item);
@@ -207,6 +236,4 @@ internal static class Extensions
     public static void Prefabitize(this GameObject obj) => obj.transform.SetParent(PrefabUtils.DisabledParent, false);
 
     public static T LoadFromObject<T>(this AssetBundle bundle, string name) where T : UnityEngine.Object => bundle.LoadAsset(name).Cast<GameObject>().GetComponentInChildren<T>();
-
-    public static Sprite ConvertToSprite(this Texture2D texture) => Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
 }

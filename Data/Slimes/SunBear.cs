@@ -19,9 +19,6 @@ using System.Threading.Tasks;
 using System.Transactions;
 using UnityEngine;
 using UnityEngine.Playables;
-using static SUNBEAR.HarmonyPatches;
-using static SUNBEAR.HarmonyPatches.Localization;
-// using static OtherHarmonyPatches;
 
 namespace SUNBEAR.Data.Slimes
 {
@@ -162,6 +159,8 @@ namespace SUNBEAR.Data.Slimes
                 sunBearSlime = ScriptableObject.CreateInstance<SlimeDefinition>();
                 sunBearSlime.hideFlags |= HideFlags.HideAndDontSave;
                 sunBearSlime.name = "SunBear";
+                sunBearSlime.Name = sunBearSlime.name;
+
                 sunBearSlime.CanLargofy = true;
                 sunBearSlime.color = sunBearPalette[0];
                 sunBearSlime.localizationSuffix = "sun_bear_slime";
@@ -169,6 +168,7 @@ namespace SUNBEAR.Data.Slimes
                 sunBearPlort = ScriptableObject.CreateInstance<IdentifiableType>();
                 sunBearPlort.hideFlags |= HideFlags.HideAndDontSave;
                 sunBearPlort.name = "SunBearPlort";
+
                 sunBearPlort.IsPlort = true;
                 sunBearPlort.color = sunBearPalette[1];
                 sunBearPlort.localizationSuffix = "sun_bear_plort";
@@ -196,10 +196,13 @@ namespace SUNBEAR.Data.Slimes
                     "This could be considered the same for their usual attacking.", true
                 );
                 PediaHelper.AddSlimepediaSection(sunBearEntry,
-                    "Sun Bear plorts are a rather mysterious type of plort. " +
+                    "Sun Bear plorts were long shrouded in mystery, with unconfirmed claims on slime forums about their potential effects. " +
+                    "Recently, scientists revealed confidential research indicating that these plorts show extraordinary abilities when near garden crops. " +
+                    "However, the catch is that this ability can only be utilized every 12 hours in a ranching setting.", false, true
+                    /*"Sun Bear plorts are a rather mysterious type of plort. " +
                     "On slime forums, individuals have claimed that these plorts can enhance food growth and reduce decay. " +
                     "Scientists have yet to validate these claims and are keeping their research on the plort confidential. " +
-                    "It is hoped that more information about the plort will be made available soon.", false, true
+                    "It is hoped that more information about the plort will be made available soon.", false, true*/
                 );
 
                 /*string generalSlimeology =
@@ -311,11 +314,11 @@ namespace SUNBEAR.Data.Slimes
                 {
                     case "GameCore":
                         {
-                            sunBearSlime.localizedName = LocalizationDirectorLoadTablePatch.AddTranslation("Actor", "l.sun_bear_slime", "Sun Bear Slime");
-                            sunBearPlort.localizedName = LocalizationDirectorLoadTablePatch.AddTranslation("Actor", "l.sun_bear_plort", "Sun Bear Plort");
+                            sunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearSlime.localizationSuffix, "Sun Bear Slime");
+                            sunBearPlort.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearPlort.localizationSuffix, "Sun Bear Plort");
 
                             #region SUN_BEAR_PLORT
-                            sunBearPlort.icon = LocalAssets.iconPlortSunBear.ConvertToSprite();
+                            sunBearPlort.icon = LocalAssets.iconPlortSunBearSpr;
 
                             // MATERIAL
                             Material plortMaterial = UnityEngine.Object.Instantiate(Get<GameObject>("plortPink").GetComponent<MeshRenderer>().sharedMaterial);
@@ -334,16 +337,16 @@ namespace SUNBEAR.Data.Slimes
                             sunBearPlort.prefab.GetComponent<Identifiable>().identType = sunBearPlort;
                             sunBearPlort.prefab.GetComponent<MeshRenderer>().sharedMaterial = plortMaterial;
 
-                            SECTR_PointSource pointSource = sunBearPlort.prefab.AddComponent<SECTR_PointSource>();
+                            /*SECTR_PointSource pointSource = sunBearPlort.prefab.AddComponent<SECTR_PointSource>();
                             pointSource.pitch = 1;
                             pointSource.Loop = false;
                             pointSource.PlayOnStart = false;
                             pointSource.RestartLoopsOnEnabled = false;
-                            pointSource.Cue = Get<SECTR_AudioCue>("SiloReward");
+                            pointSource.Cue = Get<SECTR_AudioCue>("SiloReward");*/
 
                             // REGISTRY
-                            plortsToPatch.Add(new MarketUI.PlortEntry() { identType = sunBearPlort });
-                            valueMapsToPatch.Add(new EconomyDirector.ValueMap
+                            GeneralizedHelper.RegisterPlortEntry(new MarketUI.PlortEntry() { identType = sunBearPlort });
+                            GeneralizedHelper.RegisterValueMap(new EconomyDirector.ValueMap
                             {
                                 Accept = sunBearPlort.prefab.GetComponent<Identifiable>(),
                                 FullSaturation = 20,
@@ -471,13 +474,14 @@ namespace SUNBEAR.Data.Slimes
                                 Get<IdentifiableType>("BriarChick"),
                                 Get<IdentifiableType>("SeaChick"),
                                 Get<IdentifiableType>("ThunderChick"),
+                                Get<IdentifiableType>("PaintedChick"),
                                 Get<IdentifiableType>("WildHoneyCraft"),
                                 Get<IdentifiableType>("SunSapCraft")
                             };
                             sunBearSlime.Diet.FavoriteIdents = new IdentifiableType[] { Get<IdentifiableType>("WildHoneyCraft") };
                             sunBearSlime.Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, sunBearSlime);
 
-                            sunBearSlime.icon = LocalAssets.iconSlimeSunBear.ConvertToSprite();
+                            sunBearSlime.icon = LocalAssets.iconSlimeSunBearSpr;
                             sunBearSlime.properties = UnityEngine.Object.Instantiate(Get<SlimeDefinition>("Pink").properties);
                             sunBearSlime.defaultPropertyValues = UnityEngine.Object.Instantiate(Get<SlimeDefinition>("Pink")).defaultPropertyValues;
 
@@ -513,13 +517,6 @@ namespace SUNBEAR.Data.Slimes
                             slimeAppearance.Structures[2].SupportsFaces = false;
 
                             // REST OF APPEARANCE
-                            string[] shaderKeywords = new string[]
-                            {
-                                "_BODYCOLORING_MULTI",
-                                "_LIGHTMODEL_DEFAULT",
-                                "_STATIC"
-                            };
-
                             Material slimeMaterial = UnityEngine.Object.Instantiate(slimeAppearance.Structures[0].DefaultMaterials[0]);
                             slimeMaterial.hideFlags |= HideFlags.HideAndDontSave;
                             slimeMaterial.name = "slimeSunBearBase";
@@ -536,7 +533,10 @@ namespace SUNBEAR.Data.Slimes
                             slimeMaterial.SetColor("_GreenMiddleColor", sunBearPalette[3]);
                             slimeMaterial.SetColor("_GreenBottomColor", sunBearPalette[2]);
 
-                            slimeMaterial.SetShaderKeywords(shaderKeywords);
+                            var slimeKeywords = slimeMaterial.GetShaderKeywords().ToList();
+                            slimeKeywords.Remove("_BODYCOLORING_DEFAULT");
+                            slimeKeywords.Add("_BODYCOLORING_MULTI");
+                            slimeMaterial.SetShaderKeywords(slimeKeywords.ToArray());
 
                             Material earsMaterial = UnityEngine.Object.Instantiate(slimeMaterial);
                             earsMaterial.hideFlags |= HideFlags.HideAndDontSave;
@@ -545,8 +545,6 @@ namespace SUNBEAR.Data.Slimes
                             earsMaterial.SetColor("_RedTopColor", sunBearPalette[0]);
                             earsMaterial.SetColor("_RedMiddleColor", sunBearPalette[1]);
                             earsMaterial.SetColor("_RedBottomColor", sunBearPalette[0]);
-
-                            earsMaterial.SetShaderKeywords(shaderKeywords);
 
                             slimeAppearance.Structures[0].DefaultMaterials[0] = slimeMaterial;
                             slimeAppearance.Structures[2].DefaultMaterials[0] = earsMaterial;
@@ -806,8 +804,11 @@ namespace SUNBEAR.Data.Slimes
                 cubSunBearSlime = ScriptableObject.CreateInstance<SlimeDefinition>();
                 cubSunBearSlime.hideFlags |= HideFlags.HideAndDontSave;
                 cubSunBearSlime.name = "CubSunBear";
+                cubSunBearSlime.Name = cubSunBearSlime.name;
+
                 cubSunBearSlime.CanLargofy = false;
                 cubSunBearSlime.color = sunBearPalette[0];
+                cubSunBearSlime.localizationSuffix = "cub_sun_bear_slime";
             }
 
             public static void Load(string sceneName)
@@ -816,7 +817,7 @@ namespace SUNBEAR.Data.Slimes
                 {
                     case "GameCore":
                         {
-                            cubSunBearSlime.localizedName = LocalizationDirectorLoadTablePatch.AddTranslation("Actor", "l.cub_sun_bear_slime", "Cub Sun Bear Slime");
+                            cubSunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + cubSunBearSlime.localizationSuffix, "Cub Sun Bear Slime");
 
                             #region CUB_SUN_BEAR_SLIME
                             // DEFINITION
@@ -878,12 +879,20 @@ namespace SUNBEAR.Data.Slimes
                             UnityEngine.Object.Destroy(cubSunBearSlime.prefab.transform.FindChild("SunBearTriggers(Clone)/SunBearProtectionTrigger").gameObject);
 
                             // DIET
-                            cubSunBearSlime.Diet = UnityEngine.Object.Instantiate(Get<SlimeDefinition>("Pink")).Diet;
-                            cubSunBearSlime.Diet.MajorFoodGroups = Array.Empty<SlimeEat.FoodGroup>();
-                            cubSunBearSlime.Diet.MajorFoodIdentifiableTypeGroups = Array.Empty<IdentifiableTypeGroup>();
-                            cubSunBearSlime.Diet.ProduceIdents = Array.Empty<IdentifiableType>();
-                            cubSunBearSlime.Diet.AdditionalFoodIdents = Array.Empty<IdentifiableType>();
-                            cubSunBearSlime.Diet.FavoriteIdents = Array.Empty<IdentifiableType>();
+                            if (SunBearPreferences.IsCasualMode() && SunBearPreferences.IsCasualCubs())
+                            {
+                                cubSunBearSlime.Diet = UnityEngine.Object.Instantiate(sunBearSlime).Diet;
+                                cubSunBearSlime.Diet.ProduceIdents = Array.Empty<IdentifiableType>();
+                            }
+                            else
+                            {
+                                cubSunBearSlime.Diet = UnityEngine.Object.Instantiate(Get<SlimeDefinition>("Pink")).Diet;
+                                cubSunBearSlime.Diet.MajorFoodGroups = Array.Empty<SlimeEat.FoodGroup>();
+                                cubSunBearSlime.Diet.MajorFoodIdentifiableTypeGroups = Array.Empty<IdentifiableTypeGroup>();
+                                cubSunBearSlime.Diet.ProduceIdents = Array.Empty<IdentifiableType>();
+                                cubSunBearSlime.Diet.AdditionalFoodIdents = Array.Empty<IdentifiableType>();
+                                cubSunBearSlime.Diet.FavoriteIdents = Array.Empty<IdentifiableType>();
+                            }
                             cubSunBearSlime.Diet.RefreshEatMap(SRSingleton<GameContext>.Instance.SlimeDefinitions, cubSunBearSlime);
 
                             cubSunBearSlime.icon = sunBearSlime.icon;
@@ -933,8 +942,13 @@ namespace SUNBEAR.Data.Slimes
                             for (int i = 0; i < 9; i++)
                                 rewards.Add(Randoms.SHARED.Pick(Get<IdentifiableTypeGroup>("FruitGroup").memberTypes).prefab);
 
-                            GordoBuilder.CreateGordo(Get<IdentifiableType>("PinkGordo"), sunBearSlime, sunBearGordo, LocalAssets.iconGordoSunBear.ConvertToSprite(), "Sun Bear Gordo", 70, rewards.ToArray());
+                            GordoBuilder.CreateGordo(Get<IdentifiableType>("PinkGordo"), sunBearSlime, sunBearGordo, LocalAssets.iconGordoSunBearSpr, "Sun Bear Gordo", 70, rewards.ToArray());
                             sunBearGordo.prefab.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
+
+                            /*sunBearGordo.prefab.GetComponent<GordoFaceComponents>().StrainEyes =
+                                sunBearSlime.AppearancesDefault[0].Face.ExpressionFaces.First(x => x.SlimeExpression == SlimeFace.SlimeExpression.ALARM).Eyes;
+                            sunBearGordo.prefab.GetComponent<GordoFaceComponents>().StrainMouth =
+                                sunBearSlime.AppearancesDefault[0].Face.ExpressionFaces.First(x => x.SlimeExpression == SlimeFace.SlimeExpression.ALARM).Mouth;*/
 
                             GameObject gordoSunBearEars = new GameObject("gordo_sunbear_ears");
                             gordoSunBearEars.Prefabitize();

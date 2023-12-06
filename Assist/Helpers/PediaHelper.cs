@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SUNBEAR.HarmonyPatches;
-using static SUNBEAR.HarmonyPatches.Localization;
 using UnityEngine.Localization;
-using MelonLoader;
 using Il2CppMonomiPark.SlimeRancher.Pedia;
 using HarmonyLib;
 
@@ -71,7 +68,7 @@ namespace SUNBEAR.Assist
             if (pediaPagesEntries.IsNull())
                 pediaPagesEntries = new List<PediaEntry.PediaPagesEntry>();
 
-            LocalizedString pediaTranslation = LocalizationDirectorLoadTablePatch.AddTranslation("PediaPage", CreatePediaKey(pediaSection.name.ToLower().Replace(" ", "_"), localizationSuffix), pediaText);
+            LocalizedString pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreatePediaKey(pediaSection.name.ToLower().Replace(" ", "_"), localizationSuffix), pediaText);
             pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
             {
                 PediaPage = pediaSection,
@@ -91,14 +88,13 @@ namespace SUNBEAR.Assist
             PediaEntryCategory basePediaEntryCategory = SRSingleton<SceneContext>.Instance.PediaDirector._pediaConfiguration.Categories.ToArray().First(x => x.name == "Slimes");
             PediaEntry pediaEntry = basePediaEntryCategory.Items.ToArray().First();
 
-            LocalizedString intro = LocalizationDirectorLoadTablePatch.AddTranslation("Pedia", CreateIdentifiableKey("intro", identifiableType), pediaIntro);
+            LocalizedString intro = GeneralizedHelper.CreateTranslation("Pedia", CreateIdentifiableKey("intro", identifiableType), pediaIntro);
             IdentifiablePediaEntry identifiablePediaEntry = CreateIdentifiableEntry(identifiableType, pediaEntryName, pediaEntry._template,
                 identifiableType.localizedName, intro, null, unlockedInitially);
 
             if (!basePediaEntryCategory.Items.ToArray().FirstOrDefault(x => x == identifiablePediaEntry))
                 basePediaEntryCategory._items = basePediaEntryCategory._items.ToArray().AddToArray(identifiablePediaEntry);
-            if (!pediasToPatch.Contains(identifiablePediaEntry))
-                pediasToPatch.Add(identifiablePediaEntry);
+            GeneralizedHelper.RegisterPediaEntry(identifiablePediaEntry);
 
             return identifiablePediaEntry;
         }
@@ -116,7 +112,7 @@ namespace SUNBEAR.Assist
             LocalizedString pediaTranslation;
             if (isRisks && !isPlortonomics)
             {
-                pediaTranslation = LocalizationDirectorLoadTablePatch.AddTranslation("PediaPage", CreateIdentifiableKey("risks", identifiablePediaEntry.IdentifiableType), pediaText);
+                pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("risks", identifiablePediaEntry.IdentifiableType), pediaText);
                 pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
                 {
                     PediaPage = Get<PediaPage>("Rancher Risks"),
@@ -127,7 +123,7 @@ namespace SUNBEAR.Assist
             }
             else if (!isRisks && isPlortonomics)
             {
-                pediaTranslation = LocalizationDirectorLoadTablePatch.AddTranslation("PediaPage", CreateIdentifiableKey("plortonomics", identifiablePediaEntry.IdentifiableType), pediaText);
+                pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("plortonomics", identifiablePediaEntry.IdentifiableType), pediaText);
                 pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
                 {
                     PediaPage = Get<PediaPage>("Plortonomics"),
@@ -138,7 +134,7 @@ namespace SUNBEAR.Assist
             }
             else
             {
-                pediaTranslation = LocalizationDirectorLoadTablePatch.AddTranslation("PediaPage", CreateIdentifiableKey("slimeology", identifiablePediaEntry.IdentifiableType), pediaText);
+                pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("slimeology", identifiablePediaEntry.IdentifiableType), pediaText);
                 pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
                 {
                     PediaPage = Get<PediaPage>("Slimeology"),
