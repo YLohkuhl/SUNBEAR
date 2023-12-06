@@ -10,12 +10,7 @@ namespace SUNBEAR.Components
     [RegisterTypeInIl2Cpp]
     internal class SunBearGlobalStatistics : MonoBehaviour
     {
-        internal class Statistic
-        {
-
-        }
-
-        private const float PLORTONOMICS_WAIT_TIME = 24;
+        private const float PLORTONOMICS_WAIT_TIME = 12;
 
         private static TimeDirector timeDir;
         private static double nextPlortonomicsUsableTime;
