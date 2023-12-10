@@ -7,7 +7,7 @@
 	<DebugType>embedded</DebugType>
 	<Title>SUNBEAR</Title>
 	<Authors>FruitsyOG</Authors>
-	<VersionPrefix>1.0.0</VersionPrefix>
+	<VersionPrefix>1.1.1</VersionPrefix>
 	<Copyright>Copyright @ FruitsyOG 2023</Copyright>
 	<RepositoryUrl>https://github.com/ItzBlueBerries/SUNBEAR</RepositoryUrl>
 	<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
@@ -24,6 +24,7 @@
     <Compile Remove="Data\Foods\Archived\Sunberry.cs" />
     <Compile Remove="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
     <Compile Remove="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
+    <Compile Remove="Harmony\Other\Gordo\GordoRewardsSelectActiveRewardPrefabsPatch.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +46,7 @@
     <None Include="Data\Foods\Archived\Sunberry.cs" />
     <None Include="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
     <None Include="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
+    <None Include="Harmony\Other\Gordo\Archived\GordoRewardsSelectActiveRewardPrefabsPatch.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -933,10 +933,10 @@ namespace SUNBEAR.Data.Slimes
                             {
                                 Get<IdentifiableType>("ContainerStrand01").prefab,
                                 Get<IdentifiableType>("ContainerStrand01").prefab,
+                                Get<IdentifiableType>("ContainerStrand01").prefab,
                                 Get<IdentifiableType>("WildHoneyCraft").prefab,
                                 Get<IdentifiableType>("WildHoneyCraft").prefab,
-                                Get<IdentifiableType>("WildHoneyCraft").prefab,
-                                Get<IdentifiableType>("SunSapCraft").prefab
+                                Get<IdentifiableType>("WildHoneyCraft").prefab
                             };
 
                             for (int i = 0; i < 9; i++)

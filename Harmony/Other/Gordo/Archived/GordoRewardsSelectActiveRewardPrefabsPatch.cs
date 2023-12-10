@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Il2CppAssets.Script.Util.Extensions;
 using Il2CppMonomiPark.SlimeRancher.Regions;
 using Il2CppMonomiPark.SlimeRancher.World;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SUNBEAR.Harmony.Other
 {
-    [HarmonyPatch(typeof(GordoRewards), nameof(GordoRewards.SelectActiveRewardPrefabs))]
+    /*[HarmonyPatch(typeof(GordoRewards), nameof(GordoRewards.SelectActiveRewardPrefabs))]
     internal class GordoRewardsSelectActiveRewardPrefabsPatch
     {
         public static bool Prefix(GordoRewards __instance, ref Il2CppSystem.Collections.Generic.IEnumerable<GameObject> __result)
@@ -24,11 +25,16 @@ namespace SUNBEAR.Harmony.Other
 
                 modifiedRewards.Remove(Get<IdentifiableType>("SunSapCraft").prefab);
                 modifiedRewards.Add(Get<IdentifiableType>("ContainerStrand01").prefab);
-                __result = modifiedRewards.Cast<Il2CppSystem.Collections.Generic.IEnumerable<GameObject>>();
+
+                var castedRewards = modifiedRewards.TryCast<Il2CppSystem.Collections.Generic.IEnumerable<GameObject>>();
+                /*if (castedRewards.IsNull())
+                    return true;
+
+                __result = castedRewards;
                 return false;
             }
 
             return true;
         }
-    }
+    }*/
 }
