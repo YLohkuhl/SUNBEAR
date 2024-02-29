@@ -251,7 +251,7 @@ namespace SUNBEAR.Components
             animator.SetBool(Animator.StringToHash("Digesting"), true);
             slimeAudio.Play(slimeAudio.SlimeSounds.ChompClipDefinition);
             targetAudio.Play(targetAudio.SlimeSounds.VoiceDamageClipDefinition);
-            SpawnAndPlayFX(slimeEat.EatFX, target.transform.position, target.transform.rotation);
+            FXHelpers.SpawnAndPlayFX(slimeEat.EatFX, target.transform.position, target.transform.rotation);
 
             slimeAudio.Play(slimeAudio.SlimeSounds.GulpClipDefinition);
             Destroyer.DestroyActor(target, "SunBearAttack.CompleteChomp");

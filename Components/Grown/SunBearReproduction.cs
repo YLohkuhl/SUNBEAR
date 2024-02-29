@@ -55,7 +55,7 @@ namespace SUNBEAR.Components
                     float randomAngle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
                     Vector3 spawnPosition = transform.position + new Vector3(spawnDistance * Mathf.Cos(randomAngle), 0f, spawnDistance * Mathf.Sin(randomAngle));
 
-                    GameObject instantiatedCub = InstantiateActor(Get<SlimeDefinition>("CubSunBear").prefab, SceneContext.Instance.RegionRegistry.CurrentSceneGroup, spawnPosition, Quaternion.identity);
+                    GameObject instantiatedCub = InstantiationHelpers.InstantiateActor(Get<SlimeDefinition>("CubSunBear").prefab, SceneContext.Instance.RegionRegistry.CurrentSceneGroup, spawnPosition, Quaternion.identity);
                     try
                     { 
                         instantiatedCub.GetComponent<SunBearFollow>().AttemptSearch(gameObject); 
@@ -64,7 +64,7 @@ namespace SUNBEAR.Components
                     { 
                         // Nothing???
                     }
-                    SpawnAndPlayFX(Get<SlimeDefinition>("Pink").prefab.GetComponent<SlimeEat>().ProduceFX, instantiatedCub.transform.position, Quaternion.identity);
+                    FXHelpers.SpawnAndPlayFX(Get<SlimeDefinition>("Pink").prefab.GetComponent<SlimeEat>().ProduceFX, instantiatedCub.transform.position, Quaternion.identity);
                 }
             }
         }

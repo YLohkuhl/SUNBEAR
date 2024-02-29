@@ -122,7 +122,7 @@ namespace SUNBEAR.Components
                     if (timeDir.HasReached(timeTillDeath) && timeTillDeath != default)
                     {
                         Destroyer.DestroyActor(gameObject, "SBGeneralizedBehaviour.Update");
-                        SpawnAndPlayFX(Get<GameObject>("slimePhosphor").GetComponent<DestroyOutsideHoursOfDay>().DestroyFX);
+                        FXHelpers.SpawnAndPlayFX(Get<GameObject>("slimePhosphor").GetComponent<DestroyOutsideHoursOfDay>().DestroyFX);
                         // MelonLogger.Msg("Death " + gameObject.name);
                         timeTillDeath = default;
                     }

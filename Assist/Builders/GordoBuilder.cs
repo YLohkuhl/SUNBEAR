@@ -28,7 +28,7 @@ namespace SUNBEAR.Assist
 
         public static (IdentifiableType, GameObject) CreateGordo(IdentifiableType baseGordo, SlimeDefinition baseSlime, IdentifiableType assignedGordo, Sprite assignedGordoIcon, string assignedGordoName, int feedCount, GameObject[] gordoRewards)
         {
-            assignedGordo.localizedName = GeneralizedHelper.CreateTranslation("Pedia", "t." + assignedGordo.localizationSuffix, assignedGordoName);
+            assignedGordo.localizedName = GeneralizedHelper.CreateTranslation("Pedia", "t." + assignedGordo._pediaPersistenceSuffix, assignedGordoName);
             assignedGordo.showForZones = baseSlime.NativeZones;
             assignedGordo.icon = assignedGordoIcon;
 

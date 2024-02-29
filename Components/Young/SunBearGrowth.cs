@@ -47,7 +47,7 @@ namespace SUNBEAR.Components
             TweenCallback onTweenComplete = new Action(() =>
             {
                 Destroyer.DestroyActor(gameObject, "SunBearGrowth.ProcessGrowth");
-                InstantiateActor(Get<SlimeDefinition>("SunBear").prefab, SceneContext.Instance.RegionRegistry.CurrentSceneGroup, transform.position, transform.rotation);
+                InstantiationHelpers.InstantiateActor(Get<SlimeDefinition>("SunBear").prefab, SceneContext.Instance.RegionRegistry.CurrentSceneGroup, transform.position, transform.rotation);
                 // MelonLogger.Msg("Finished Growth.");
             });
             ShortcutExtensions.DOScale(transform, growthScale, growthDuration).OnComplete(onTweenComplete);
