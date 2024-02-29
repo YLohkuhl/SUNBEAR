@@ -33,7 +33,7 @@ internal class Utility
 
     public static class Spawner
     {
-        public static GameObject ToSpawn(string name) => SRBehaviour.InstantiateActor(Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(x => x.name == name), SRSingleton<SceneContext>.Instance.RegionRegistry.CurrentSceneGroup, SRSingleton<SceneContext>.Instance.Player.transform.position, Quaternion.identity);
+        public static GameObject ToSpawn(string name) => InstantiationHelpers.InstantiateActor(Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(x => x.name == name), SRSingleton<SceneContext>.Instance.RegionRegistry.CurrentSceneGroup, SRSingleton<SceneContext>.Instance.Player.transform.position, Quaternion.identity);
     }
 
     public static T Get<T>(string name) where T : UnityEngine.Object

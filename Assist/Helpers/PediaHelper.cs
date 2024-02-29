@@ -16,7 +16,7 @@ namespace SUNBEAR.Assist
         { return "m." + prefix + "." + localizationSuffix; }
 
         public static string CreateIdentifiableKey(string prefix, IdentifiableType identifiableType)
-        { return "m." + prefix + "." + identifiableType.localizationSuffix; }
+        { return "m." + prefix + "." + identifiableType._pediaPersistenceSuffix; }
 
         /*public static PediaPage CreatePediaSection(string pediaSectionName, string sectionTitle, Sprite sectionIcon)
         {
@@ -27,8 +27,8 @@ namespace SUNBEAR.Assist
             return pediaPage;
         }*/
 
-        public static IdentifiablePediaEntry CreateIdentifiableEntry(IdentifiableType identifiableType, string pediaEntryName, PediaTemplate pediaTemplate,
-            LocalizedString pediaTitle, LocalizedString pediaIntro, PediaEntry.PediaPagesEntry[] pediaPageEntries, bool unlockedInitially = false)
+        public static IdentifiablePediaEntry CreateIdentifiableEntry(IdentifiableType identifiableType, string pediaEntryName, PediaHighlightSet pediaHighlightSet,
+            LocalizedString pediaTitle, LocalizedString pediaIntro, PediaEntryDetail[] pediaEntryDetails, bool unlockedInitially = false)
         {
             if (Get<IdentifiablePediaEntry>(pediaEntryName))
                 return null;
@@ -41,15 +41,16 @@ namespace SUNBEAR.Assist
             identifiablePediaEntry._description = pediaIntro;
             identifiablePediaEntry._identifiableType = identifiableType;
 
-            identifiablePediaEntry._template = pediaTemplate;
-            identifiablePediaEntry._pageEntries = pediaPageEntries;
+            identifiablePediaEntry._details = pediaEntryDetails;
+            identifiablePediaEntry._highlightSet = pediaHighlightSet;
             identifiablePediaEntry._unlockInfoProvider = SceneContext.Instance.PediaDirector.Cast<IUnlockInfoProvider>();
             identifiablePediaEntry._isUnlockedInitially = unlockedInitially;
 
             return identifiablePediaEntry;
         }
 
-        public static void AddPediaSection(PediaEntry pediaEntry, PediaPage pediaSection, string pediaText)
+        // Don't need this anymore
+        /*public static void AddPediaSection(PediaEntry pediaEntry, PediaDetailSection pediaSection, string pediaText)
         {
             if (pediaEntry.IsNull())
                 return;
@@ -57,42 +58,42 @@ namespace SUNBEAR.Assist
             string localizationSuffix;
 
             if (pediaEntry.TryCast<FixedPediaEntry>())
-                localizationSuffix = pediaEntry.Cast<FixedPediaEntry>()._textId;
+                localizationSuffix = pediaEntry.Cast<FixedPediaEntry>()._persistenceSuffix;
             else if (pediaEntry.TryCast<IdentifiablePediaEntry>())
-                localizationSuffix = pediaEntry.Cast<IdentifiablePediaEntry>().IdentifiableType.localizationSuffix;
+                localizationSuffix = pediaEntry.Cast<IdentifiablePediaEntry>().IdentifiableType._pediaPersistenceSuffix;
             else
                 return;
 
-            List<PediaEntry.PediaPagesEntry> pediaPagesEntries = pediaEntry._pageEntries?.ToList();
+            List<PediaEntryDetail> pediaPagesEntries = pediaEntry._details?.ToList();
 
             if (pediaPagesEntries.IsNull())
-                pediaPagesEntries = new List<PediaEntry.PediaPagesEntry>();
+                pediaPagesEntries = new List<PediaEntryDetail>();
 
             LocalizedString pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreatePediaKey(pediaSection.name.ToLower().Replace(" ", "_"), localizationSuffix), pediaText);
-            pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
+            pediaPagesEntries.Add(new PediaEntryDetail()
             {
-                PediaPage = pediaSection,
+                SE = pediaSection,
                 Text = pediaTranslation,
                 TextGamepad = pediaTranslation,
                 TextPS4 = pediaTranslation
             });
 
             pediaEntry._pageEntries = pediaPagesEntries.ToArray();
-        }
+        }*/
 
         public static PediaEntry AddSlimepedia(IdentifiableType identifiableType, string pediaEntryName, string pediaIntro, bool unlockedInitially = false)
         {
             if (Get<IdentifiablePediaEntry>(pediaEntryName))
                 return null;
 
-            PediaEntryCategory basePediaEntryCategory = SRSingleton<SceneContext>.Instance.PediaDirector._pediaConfiguration.Categories.ToArray().First(x => x.name == "Slimes");
-            PediaEntry pediaEntry = basePediaEntryCategory.Items.ToArray().First();
+            PediaCategory basePediaEntryCategory = SRSingleton<SceneContext>.Instance.PediaDirector._pediaConfiguration.Categories.ToArray().First(x => x.name == "Slimes");
+            PediaEntry pediaEntry = basePediaEntryCategory._items.First();
 
             LocalizedString intro = GeneralizedHelper.CreateTranslation("Pedia", CreateIdentifiableKey("intro", identifiableType), pediaIntro);
-            IdentifiablePediaEntry identifiablePediaEntry = CreateIdentifiableEntry(identifiableType, pediaEntryName, pediaEntry._template,
+            IdentifiablePediaEntry identifiablePediaEntry = CreateIdentifiableEntry(identifiableType, pediaEntryName, pediaEntry._highlightSet,
                 identifiableType.localizedName, intro, null, unlockedInitially);
 
-            if (!basePediaEntryCategory.Items.ToArray().FirstOrDefault(x => x == identifiablePediaEntry))
+            if (!basePediaEntryCategory._items.FirstOrDefault(x => x == identifiablePediaEntry))
                 basePediaEntryCategory._items = basePediaEntryCategory._items.ToArray().AddToArray(identifiablePediaEntry);
             GeneralizedHelper.RegisterPediaEntry(identifiablePediaEntry);
 
@@ -104,18 +105,18 @@ namespace SUNBEAR.Assist
             if (identifiablePediaEntry.IsNull())
                 return;
 
-            List<PediaEntry.PediaPagesEntry> pediaPagesEntries = identifiablePediaEntry._pageEntries?.ToList();
+            List<PediaEntryDetail> pediaPagesEntries = identifiablePediaEntry._details?.ToList();
 
             if (pediaPagesEntries.IsNull())
-                pediaPagesEntries = new List<PediaEntry.PediaPagesEntry>();
+                pediaPagesEntries = new List<PediaEntryDetail>();
 
             LocalizedString pediaTranslation;
             if (isRisks && !isPlortonomics)
             {
                 pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("risks", identifiablePediaEntry.IdentifiableType), pediaText);
-                pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
+                pediaPagesEntries.Add(new PediaEntryDetail()
                 {
-                    PediaPage = Get<PediaPage>("Rancher Risks"),
+                    Section = Get<PediaDetailSection>("Rancher Risks"),
                     Text = pediaTranslation,
                     TextGamepad = pediaTranslation,
                     TextPS4 = pediaTranslation
@@ -124,9 +125,9 @@ namespace SUNBEAR.Assist
             else if (!isRisks && isPlortonomics)
             {
                 pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("plortonomics", identifiablePediaEntry.IdentifiableType), pediaText);
-                pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
+                pediaPagesEntries.Add(new PediaEntryDetail()
                 {
-                    PediaPage = Get<PediaPage>("Plortonomics"),
+                    Section = Get<PediaDetailSection>("Plortonomics"),
                     Text = pediaTranslation,
                     TextGamepad = pediaTranslation,
                     TextPS4 = pediaTranslation
@@ -135,16 +136,16 @@ namespace SUNBEAR.Assist
             else
             {
                 pediaTranslation = GeneralizedHelper.CreateTranslation("PediaPage", CreateIdentifiableKey("slimeology", identifiablePediaEntry.IdentifiableType), pediaText);
-                pediaPagesEntries.Add(new PediaEntry.PediaPagesEntry()
+                pediaPagesEntries.Add(new PediaEntryDetail()
                 {
-                    PediaPage = Get<PediaPage>("Slimeology"),
+                    Section = Get<PediaDetailSection>("Slimeology"),
                     Text = pediaTranslation,
                     TextGamepad = pediaTranslation,
                     TextPS4 = pediaTranslation
                 });
             }
 
-            identifiablePediaEntry._pageEntries = pediaPagesEntries.ToArray();
+            identifiablePediaEntry._details = pediaPagesEntries.ToArray();
         }
     }
 }

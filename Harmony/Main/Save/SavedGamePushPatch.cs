@@ -17,7 +17,7 @@ namespace SUNBEAR.Harmony
         {
             foreach (var pediaEntry in pediasToPatch)
                 if (pediaEntry)
-                    __instance.pediaEntryLookup.TryAdd(pediaEntry.GetPersistenceId(), pediaEntry);
+                    __instance.pediaEntryLookup.TryAdd(pediaEntry.PersistenceId, pediaEntry);
 
             /*var iconTranslation = __instance._gameIconTranslation;
             foreach (var gameIcon in gameIconsToPatch)

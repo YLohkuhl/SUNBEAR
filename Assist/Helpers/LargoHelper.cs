@@ -23,7 +23,8 @@ namespace SUNBEAR.Assist
             largoDefinition.IsLargo = true;
             largoDefinition.CanLargofy = false;
             largoDefinition.color = identifiableColor;
-            largoDefinition.localizationSuffix = primaryDefinition.localizationSuffix.Replace("_slime", "_") + secondaryDefinition.localizationSuffix.Replace("_slime", "_largo");
+            largoDefinition._pediaPersistenceSuffix = 
+                primaryDefinition._pediaPersistenceSuffix.Replace("_slime", "_") + secondaryDefinition._pediaPersistenceSuffix.Replace("_slime", "_largo");
             largoDefinition.BaseSlimes = new SlimeDefinition[] { primaryDefinition, secondaryDefinition };
 
             return largoDefinition;
@@ -107,7 +108,7 @@ namespace SUNBEAR.Assist
             // THIS IS ONLY MADE FOR SUN BEAR LARGOS
             SlimeDefinition primaryDef = largoDefinition.BaseSlimes[0];
             SlimeDefinition secondaryDef = largoDefinition.BaseSlimes[1];
-            largoDefinition.localizedName = GeneralizedHelper.CreateTranslation("Actor", largoDefinition.localizationSuffix, largoName);
+            largoDefinition.localizedName = GeneralizedHelper.CreateTranslation("Actor", largoDefinition._pediaPersistenceSuffix, largoName);
 
             #region SUN_BEAR_LARGO
             // DEFINITION

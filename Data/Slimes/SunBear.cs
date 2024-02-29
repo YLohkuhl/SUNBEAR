@@ -163,7 +163,7 @@ namespace SUNBEAR.Data.Slimes
 
                 sunBearSlime.CanLargofy = true;
                 sunBearSlime.color = sunBearPalette[0];
-                sunBearSlime.localizationSuffix = "sun_bear_slime";
+                sunBearSlime._pediaPersistenceSuffix = "sun_bear_slime";
 
                 sunBearPlort = ScriptableObject.CreateInstance<IdentifiableType>();
                 sunBearPlort.hideFlags |= HideFlags.HideAndDontSave;
@@ -171,7 +171,7 @@ namespace SUNBEAR.Data.Slimes
 
                 sunBearPlort.IsPlort = true;
                 sunBearPlort.color = sunBearPalette[1];
-                sunBearPlort.localizationSuffix = "sun_bear_plort";
+                sunBearPlort._pediaPersistenceSuffix = "sun_bear_plort";
             }
 
             public static void LoadSlimepedia()
@@ -314,8 +314,8 @@ namespace SUNBEAR.Data.Slimes
                 {
                     case "GameCore":
                         {
-                            sunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearSlime.localizationSuffix, "Sun Bear Slime");
-                            sunBearPlort.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearPlort.localizationSuffix, "Sun Bear Plort");
+                            sunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearSlime._pediaPersistenceSuffix, "Sun Bear Slime");
+                            sunBearPlort.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearPlort._pediaPersistenceSuffix, "Sun Bear Plort");
 
                             #region SUN_BEAR_PLORT
                             sunBearPlort.icon = LocalAssets.iconPlortSunBearSpr;
@@ -808,7 +808,7 @@ namespace SUNBEAR.Data.Slimes
 
                 cubSunBearSlime.CanLargofy = false;
                 cubSunBearSlime.color = sunBearPalette[0];
-                cubSunBearSlime.localizationSuffix = "cub_sun_bear_slime";
+                cubSunBearSlime._pediaPersistenceSuffix = "cub_sun_bear_slime";
             }
 
             public static void Load(string sceneName)
@@ -817,7 +817,7 @@ namespace SUNBEAR.Data.Slimes
                 {
                     case "GameCore":
                         {
-                            cubSunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + cubSunBearSlime.localizationSuffix, "Cub Sun Bear Slime");
+                            cubSunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + cubSunBearSlime._pediaPersistenceSuffix, "Cub Sun Bear Slime");
 
                             #region CUB_SUN_BEAR_SLIME
                             // DEFINITION
@@ -919,7 +919,7 @@ namespace SUNBEAR.Data.Slimes
                 sunBearGordo.hideFlags |= HideFlags.HideAndDontSave;
                 sunBearGordo.name = "SunBearGordo";
                 sunBearGordo.color = sunBearPalette[0];
-                sunBearGordo.localizationSuffix = "sun_bear_gordo";
+                sunBearGordo._pediaPersistenceSuffix = "sun_bear_gordo";
             }
 
             public static void Load(string sceneName)
