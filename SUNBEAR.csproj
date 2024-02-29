@@ -7,8 +7,8 @@
 	<DebugType>embedded</DebugType>
 	<Title>SUNBEAR</Title>
 	<Authors>FruitsyOG</Authors>
-	<VersionPrefix>1.1.1</VersionPrefix>
-	<Copyright>Copyright @ FruitsyOG 2023</Copyright>
+	<VersionPrefix>1.1.2</VersionPrefix>
+	<Copyright>Copyright @ FruitsyOG 2024</Copyright>
 	<RepositoryUrl>https://github.com/ItzBlueBerries/SUNBEAR</RepositoryUrl>
 	<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
 	<FileVersion>$(VersionPrefix)</FileVersion>
