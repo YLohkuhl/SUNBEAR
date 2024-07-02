@@ -13,12 +13,9 @@ namespace SUNBEAR.Assist
 {
     internal static class GeneralizedHelper
     {
-        internal static HashSet<PediaEntry> pediasToPatch = new HashSet<PediaEntry>();
         // internal static HashSet<GameIconDefinition> gameIconsToPatch = new HashSet<GameIconDefinition>();
         internal static List<MarketUI.PlortEntry> plortsToPatch = new List<MarketUI.PlortEntry>();
         internal static List<EconomyDirector.ValueMap> valueMapsToPatch = new List<EconomyDirector.ValueMap>();
-
-        public static void RegisterPediaEntry(PediaEntry pediaEntry) => pediasToPatch.TryAdd(pediaEntry);
 
         // public static void RegisterGameIcon(GameIconDefinition gameIcon) => gameIconsToPatch.TryAdd(gameIcon);
 

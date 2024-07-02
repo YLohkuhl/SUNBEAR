@@ -41,6 +41,11 @@ internal class Utility
         return Resources.FindObjectsOfTypeAll<T>().FirstOrDefault(found => found.name.Equals(name));
     }
 
+    public static UnityEngine.Object Get(Il2CppSystem.Type type, string name)
+    {
+        return Resources.FindObjectsOfTypeAll(type).FirstOrDefault(found => found.name.Equals(name));
+    }
+
     public static Color LoadHex(string hexCode)
     {
         ColorUtility.TryParseHtmlString(hexCode, out var returnedColor);

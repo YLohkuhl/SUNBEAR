@@ -2,6 +2,7 @@
 using Il2Cpp;
 using Il2CppAssets.Script.Util.Extensions;
 using Il2CppInterop.Runtime;
+using Il2CppMonomiPark.SlimeRancher;
 using Il2CppMonomiPark.SlimeRancher.Pedia;
 using Il2CppMonomiPark.SlimeRancher.UI;
 using Il2CppMonomiPark.SlimeRancher.World;
@@ -174,138 +175,60 @@ namespace SUNBEAR.Data.Slimes
                 sunBearPlort._pediaPersistenceSuffix = "sun_bear_plort";
             }
 
-            public static void LoadSlimepedia()
+            public static void LoadPedia()
             {
-                IdentifiablePediaEntry sunBearEntry = PediaHelper.AddSlimepedia(sunBearSlime, "SunBear", "While not the most popular, the unique patch on their fur will remind you of who they are!")?.Cast<IdentifiablePediaEntry>();
-                PediaHelper.AddSlimepediaSection(sunBearEntry,
-                    "The Sun Bear slime, distinct for its fur patch and texture, is a unique and speedy species. " +
-                    "They are defensive, preferring isolation, especially when cubs are present. " +
-                    "Reproduction is rare but only requires one bear, taking 3-7 days for 1-2 cubs, which can grow aggressive once fully grown. " +
-                    "Once Sun Bears become largos, they lose the ability to reproduce. " +
-                    "Cubs need a caretaker Sun Bear for proper care and feeding, making it impossible to take them home. " +
-                    "Sun Bears harvest Wild Honey, and hungry ones may turn savage, requiring quick feeding. " +
-                    "Cubs are playful and grow into ranchable bears after 3-5 days. " +
-                    "Key facts include their resistance to vacpack in attack mode, increased attack chances based on hunger, agitation, or cub presence. " +
-                    "Largos, more domesticated post-merging, can go savage, adding complexity to ranching."
+                sunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearSlime._pediaPersistenceSuffix, "Sun Bear Slime");
+                sunBearPlort.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearPlort._pediaPersistenceSuffix, "Sun Bear Plort");
+
+                PediaEntry sunBearEntry = PediaHelper.CreateIdentifiableEntry(sunBearSlime, Get<PediaEntry>("Pink")._highlightSet,
+                    GeneralizedHelper.CreateTranslation(
+                        "Pedia",
+                        $"m.intro.{sunBearSlime._pediaPersistenceSuffix}",
+                        "While not the most popular, the unique patch on their fur will remind you of who they are!"
+                    ),
+                    []
                 );
-                PediaHelper.AddSlimepediaSection(sunBearEntry,
-                    "Due to the Sun Bear slimes preferring isolation, they may perceive you as a threat simply for approaching them. " +
-                    "In such situations, it's best to run, as they will eventually cease pursuit once you exit their proximity—considerably more amiable than other bears. " +
-                    "When they turn savage, you can deter them by splashing water or offering food. " +
-                    "This is considerably more dangerous than a feral state, as they become fixated solely on one thing: their target. " +
-                    "This could be considered the same for their usual attacking.", true
+                
+                // SLIMEOLOGY
+                PediaHelper.AddSectionToPedia(sunBearEntry, Get<PediaDetailSection>("Slimeology"),
+                   GeneralizedHelper.CreateTranslation("PediaPage", $"m.slimeology.{sunBearSlime._pediaPersistenceSuffix}",
+                        "The Sun Bear slime, distinct for its fur patch and texture, is a unique and speedy species. " +
+                        "They are defensive, preferring isolation, especially when cubs are present. " +
+                        "Reproduction is rare but only requires one bear, taking 3-7 days for 1-2 cubs, which can grow aggressive once fully grown. " +
+                        "Once Sun Bears become largos, they lose the ability to reproduce. " +
+                        "Cubs need a caretaker Sun Bear for proper care and feeding, making it impossible to take them home. " +
+                        "Sun Bears harvest Wild Honey, and hungry ones may turn savage, requiring quick feeding. " +
+                        "Cubs are playful and grow into ranchable bears after 3-5 days. " +
+                        "Key facts include their resistance to vacpack in attack mode, increased attack chances based on hunger, agitation, or cub presence. " +
+                        "Largos, more domesticated post-merging, can go savage, adding complexity to ranching."
+                   )
                 );
-                PediaHelper.AddSlimepediaSection(sunBearEntry,
-                    "Sun Bear plorts were long shrouded in mystery, with unconfirmed claims on slime forums about their potential effects. " +
-                    "Recently, scientists revealed confidential research indicating that these plorts show extraordinary abilities when near garden crops. " +
-                    "However, the catch is that this ability can only be utilized every 12 hours in a ranching setting.", false, true
+
+                // RISKS
+                PediaHelper.AddSectionToPedia(sunBearEntry, Get<PediaDetailSection>("Rancher Risks"),
+                    GeneralizedHelper.CreateTranslation("PediaPage", $"m.risks.{sunBearSlime._pediaPersistenceSuffix}",
+                        "Due to the Sun Bear slimes preferring isolation, they may perceive you as a threat simply for approaching them. " +
+                        "In such situations, it's best to run, as they will eventually cease pursuit once you exit their proximity—considerably more amiable than other bears. " +
+                        "When they turn savage, you can deter them by splashing water or offering food. " +
+                        "This is considerably more dangerous than a feral state, as they become fixated solely on one thing: their target. " +
+                        "This could be considered the same for their usual attacking."
+                    )
+                );
+
+                // PLORTONOMICS
+                PediaHelper.AddSectionToPedia(sunBearEntry, Get<PediaDetailSection>("Plortonomics"),
+                    GeneralizedHelper.CreateTranslation("PediaPage", $"m.plortonomics.{sunBearSlime._pediaPersistenceSuffix}",
+                        "Sun Bear plorts were long shrouded in mystery, with unconfirmed claims on slime forums about their potential effects. " +
+                        "Recently, scientists revealed confidential research indicating that these plorts show extraordinary abilities when near garden crops. " +
+                        "However, the catch is that this ability can only be utilized every 12 hours in a ranching setting."
+                    )
                     /*"Sun Bear plorts are a rather mysterious type of plort. " +
                     "On slime forums, individuals have claimed that these plorts can enhance food growth and reduce decay. " +
                     "Scientists have yet to validate these claims and are keeping their research on the plort confidential. " +
                     "It is hoped that more information about the plort will be made available soon.", false, true*/
                 );
 
-                /*string generalSlimeology =
-                    "<i>This is gonna be a long slimeology..</i>\n\n" +
-                    "Sun Bear slimes may not always look like the other slimes. " +
-                    "Their unique patch is what separates them from the others, including their unique body texture. " +
-                    "They generally jump lower than the other slimes as well but are very fast! Their cubs however are not as fast and jump even lower. " +
-                    "When a cub grows, they're no longer under the safe care of their caretaker.. but then they can defend themselves. " +
-                    "Whoever it is against, they've gotten themselves in some trouble! Possibly the Sun Bear themselves as well.\n\n" +
-                    "Sun Bear slimes are quite the unique slime, getting into everything they can do can be a handful! So that's why <b>everything will be separated into sections</b>.\n" +
-                    "Learn more about the Sun Bear slimes and everything they're capable of in the next pages!\n\n" +
-                    "<b> Guide to Bear Defense -> </b>";
-
-                string defenseSlimeology =
-                    "<b>Never sneak up on a bear..</b>\n\n" +
-                    "While Sun Bear slimes may be cute, they do tend to be.. rather isolated to themselves and very defensive, <b>especially if cubs are around</b>.\n" +
-                    "It's a way of protecting themselves from unwanted threats and preferring to be alone rather than with a bunch of others. " +
-                    "Does this make them incapable of being ranched? No! They will not always attack but it's best to know how you should handle them. " +
-                    "If in some case they do attack, they've noticed you and will always run after you. It's best to just run until they're uninterested which can be quite easy a lot of the time! " +
-                    "Once uninterested, you can try to go near them again and hope that they won't attack you again, repeat this process till they're happy around you and take one home!\n\n" +
-                    "Just to clarify, cubs are harmless! Though normally to be seen around a caretaker, it can be very dangerous to go near them. Unfortunately though, you cannot take them home <i>yourself</i>. This will be explained more later.\n" +
-                    "Here's another fun fact! When a Sun Bear becomes a largo, they become more domesticated by merging with a more less-wild slime. This can make them easier to handle and they no longer attack.. unless they're savage however.\n\n" +
-                    "<b> <- General | How're cubs made? -> </b>";
-
-                string reproductionSlimeology =
-                    "<b>Did.. a cub just appear out of nowhere?</b>\n\n" +
-                    "Like any bear, they can have cubs! There is also <i>luckily</i> no need for another bear for them to reproduce.\n" +
-                    "This is not a very common process though, it can take up to 3 - 7 days for a Sun Bear to reproduce a number of 1 - 2 cubs. " +
-                    "What could you get out of this? Well you get to have cute cubs around! Though once the cubs grow up, you could ranch them. " +
-                    "It can be difficult though in the first few seconds of growing up, once the cubs are grown.. they <i>could</i> fight their caretaker. This is all part of the isolation process. " +
-                    "Figure out your own techniques/strategies to prevent this from happening if you'd like. It'll be really difficult to try and separate them once the attacking part has began.\n\n" +
-                    "Another thing about the Sun Bear largos is that they also lose the ability to reproduce. Sad really. So it's best to not expect to get cubs from a Sun Bear that has been transformed into a largo.\n\n" +
-                    "<b> <- Guide to Bear Defense | Providing for Cubs -> </b>";
-
-                string providingSlimeology =
-                    "<b>Naturally providing for cubs nearby. :3</b>\n\n" +
-                    "Cub Sun Bear slimes are very cute creatures, all they wanna do is play! Though without their caretaker, they wouldn't be able to keep their life together.\n" +
-                    "Cubs <b>require</b> a caretaker, one of who is a grown Sun Bear. They provide for them and keep them fed, regardless of if the cub is following them or not. " +
-                    "Without them, the cubs would not go through their growing process due to not being fed and sometimes could result to more.. fatal consequences. " +
-                    "This is one of the primary reasons that you cannot take cubs home with you, it would be impossible to provide for them unless a grown Sun Bear was doing it for you.\n\n" +
-                    "Every few hours, a grown Sun Bear will attempt to provide for cubs nearby. This should keep them in good shape to grow up without any delays! " +
-                    "Of course if the Sun Bear is in not good shape to feed cubs, they cannot and this could affect the cub badly.\n\n" +
-                    "<b> <- How're cubs made? | Wild Honey Harvesting -> </b>";
-
-                string harvestingSlimeology =
-                    "<b>Delicious Honey! Yum!</b>\n\n" +
-                    "Sun Bear slimes are known for their unique fur patch but they're also known for their love for honey!\n" +
-                    "With this, they have the unique ability of finding and harvesting their own <b>Wild Honey</b>. " +
-                    "Sometimes while on your own journey to harvest resources, you may see a Sun Bear slime harvesting some honey of their own. Who will get to it first? " +
-                    "Just try not to get attacked in the process, it is their favorite food after all! While they're harvesting though, they may have some difficulties of their own so maybe even help them out if possible? Hmm..\n\n" +
-                    "<b> <- Providing for Cubs | Bears went Savage -> </b>";
-
-                string savageSlimeology =
-                    "<b>Feeeeed meeeee! >:[</b>\n\n" +
-                    "While you may have a Sun Bear on your ranch or out in the wild that may not be attacking anyone.. it can all go down hill if they're hungry.\n" +
-                    "When Sun Bear slimes are hungry enough, excluding cubs but includes largos.. they tend to get very aggressive. They'll go savage, it's like being feral but could be much more deadly. " +
-                    "A pure Sun Bear slime will attempt to attack other slimes nearby and perhaps have a snack. Simple as that. " +
-                    "Largos on the other hand will attack you and you only. Wild or not, only you. They do not want to chomp on other slimes. " +
-                    "This can also be resolved once they've eaten though. Either it's a slime or something you feed them! Just make it quick before they decide to go after you..\n\n" +
-                    "While it may seem like something you should be afraid of <i>which you probably should</i>, think about them. They're probably starving! :[\n\n" +
-                    "<b> <- Wild Honey Harvesting | Guide to Bear Cubs -> </b>";
-
-                string cubSlimeology =
-                    "<b>Pure cuteness! :D</b>\n\n" +
-                    "Cub Sun Bear slimes are one of the cutest things you may see! While it is unfortunate that you cannot take them with you, they're not completely useless! Why would you consider them useless..\n" +
-                    "Cubs are very playful, they just love to play till they finally hit that big growth spurt! You'll see them jump around, roll and maybe do the occasional bite! Completely harmless. " +
-                    "They'll also follow whichever grown up bear they choose to follow, this bear will <i>most likely</i> not harm them. They must follow this bear for protection, care, etc. It's nature. " +
-                    "When it's finally time for their growth, which usually happens within 3 - 5 days, their size will transition to be bigger and they'll be all grown up. This is a bear that you could ranch once grown!\n\n" +
-                    "<b> <- Bears went Savage | Sun Bear Facts -> </b>";
-
-                string factsSlimeology =
-                    "<b>A few facts to end it off!</b>\n\n" +
-                    "While a lot of information about the Sun Bear slimes has been listed, here are some facts that you could read to get just a bit more information on the slime!\n\n" +
-                    "<b>1.</b> The vacpack has no effect on them while in attack mode.\n" +
-                    "<b>2.</b> Attack chances are increased based on hunger, agitation or if cubs are around. Tarrs are always attacked if found within their proximity. This does not mean the attack is always successful.\n" +
-                    "<b>3.</b> Largos become more domesticated when merging with a less-wild slime. Due to this, the only things largos are capable of doing is harvesting honey and going savage. " +
-                    "While this could be good for ranching in a more safer way with Sun Bear slimes, when they go savage.. it can get very complicated. Any kind of feral is also replaced with them going savage.\n\n" +
-                    "And that's all! Thanks for reading up on the Sun Bear slimes and have fun having your own little adventure with them.\n\n" +
-                    "<b> <- Guide to Bear Cubs | Rest of the Slimepedia -> </b>";
-
-                string bearRisks =
-                    "Read <b>\"Guide to Bear Defense\"</b>\n" +
-                    "Read <b>\"Bears went Savage\"</b>\n" +
-                    "Anything else could be hidden within the text.";
-
-                string bearPlortonomics =
-                    "Sun Bear plorts have the ability to help the environment, at least that's what the forums say. " +
-                    "Some have rumoured that these plorts could help the plants around them and help them grow faster and rot slower. " +
-                    "Nobody has been sure though and scientist are keeping their work concealed for the Sun Bear plorts <i>as of now</i>.";
-
-                MelonLogger.Msg(sunBearEntry.name);
-                PediaHelper.AddSlimepediaSection(sunBearEntry, generalSlimeology);
-
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.defensePediaPage, defenseSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.reproductionPediaPage, reproductionSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.providingPediaPage, providingSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.harvestingPediaPage, harvestingSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.savagePediaPage, savageSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.cubPediaPage, cubSlimeology);
-                PediaHelper.AddPediaSection(sunBearEntry, LocalInstances.factsPediaPage, factsSlimeology);
-
-                PediaHelper.AddSlimepediaSection(sunBearEntry, bearRisks);
-                PediaHelper.AddSlimepediaSection(sunBearEntry, bearPlortonomics);*/
+                PediaHelper.AddPediaToCategory(sunBearEntry, Get<PediaCategory>("Slimes"));
             }
 
             public static void Load(string sceneName)
@@ -314,9 +237,6 @@ namespace SUNBEAR.Data.Slimes
                 {
                     case "GameCore":
                         {
-                            sunBearSlime.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearSlime._pediaPersistenceSuffix, "Sun Bear Slime");
-                            sunBearPlort.localizedName = GeneralizedHelper.CreateTranslation("Actor", "l." + sunBearPlort._pediaPersistenceSuffix, "Sun Bear Plort");
-
                             #region SUN_BEAR_PLORT
                             sunBearPlort.icon = LocalAssets.iconPlortSunBearSpr;
 
@@ -354,9 +274,9 @@ namespace SUNBEAR.Data.Slimes
                             });
 
                             // EATMAPS
-                            foreach (IdentifiableTypeGroup largoGroup in Get<IdentifiableTypeGroup>("LargoGroup").memberGroups)
+                            foreach (IdentifiableTypeGroup largoGroup in Get<IdentifiableTypeGroup>("LargoGroup")._memberGroups)
                             {
-                                foreach (IdentifiableType largoType in largoGroup.memberTypes)
+                                foreach (IdentifiableType largoType in largoGroup._memberTypes)
                                 {
                                     SlimeDefinition largoDef = largoType.Cast<SlimeDefinition>();
                                     if (largoDef == null || largoDef.Diet == null || !largoDef.IsLargo)
@@ -407,7 +327,7 @@ namespace SUNBEAR.Data.Slimes
                             sunBearSlime.prefab.GetComponent<ReactToToyNearby>().SlimeDefinition = sunBearSlime;
                             sunBearSlime.prefab.GetComponent<SlimeVarietyModules>().BaseModule = sunBearSlime.BaseModule;
                             sunBearSlime.prefab.GetComponent<SlimeVarietyModules>().SlimeModules = sunBearSlime.SlimeModules;
-                            sunBearSlime.prefab.GetComponent<Vacuumable>().size = Vacuumable.Size.LARGE;
+                            sunBearSlime.prefab.GetComponent<Vacuumable>().size = VacuumableSize.LARGE;
 
                             sunBearSlime.prefab.GetComponent<SlimeHealth>().MaxHealth = 40;
                             sunBearSlime.prefab.GetComponent<FleeThreats>().FearProfile = LocalInstances.sunBearSlimeFearProfile;
@@ -845,7 +765,7 @@ namespace SUNBEAR.Data.Slimes
                             cubSunBearSlime.prefab.GetComponent<SlimeEat>().SlimeDefinition = cubSunBearSlime;
                             cubSunBearSlime.prefab.GetComponent<PlayWithToys>().SlimeDefinition = cubSunBearSlime;
                             cubSunBearSlime.prefab.GetComponent<ReactToToyNearby>().SlimeDefinition = cubSunBearSlime;
-                            cubSunBearSlime.prefab.GetComponent<Vacuumable>().size = Vacuumable.Size.NORMAL;
+                            cubSunBearSlime.prefab.GetComponent<Vacuumable>().size = VacuumableSize.NORMAL;
 
                             cubSunBearSlime.prefab.GetComponent<SlimeHealth>().MaxHealth = 20;
                             cubSunBearSlime.prefab.GetComponent<FleeThreats>().FearProfile = Get<FearProfile>("slimeStandardFearProfile");
@@ -940,7 +860,7 @@ namespace SUNBEAR.Data.Slimes
                             };
 
                             for (int i = 0; i < 9; i++)
-                                rewards.Add(Randoms.SHARED.Pick(Get<IdentifiableTypeGroup>("FruitGroup").memberTypes).prefab);
+                                rewards.Add(Randoms.SHARED.Pick(Get<IdentifiableTypeGroup>("FruitGroup")._memberTypes).prefab);
 
                             GordoBuilder.CreateGordo(Get<IdentifiableType>("PinkGordo"), sunBearSlime, sunBearGordo, LocalAssets.iconGordoSunBearSpr, "Sun Bear Gordo", 70, rewards.ToArray());
                             sunBearGordo.prefab.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);

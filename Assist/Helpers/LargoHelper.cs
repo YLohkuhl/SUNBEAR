@@ -8,6 +8,7 @@ using SUNBEAR.Data.Slimes;
 using HarmonyLib;
 using Il2CppMonomiPark.SlimeRancher.World;
 using MelonLoader;
+using Il2CppMonomiPark.SlimeRancher;
 
 namespace SUNBEAR.Assist
 {
@@ -105,7 +106,7 @@ namespace SUNBEAR.Assist
 
         public static void PresetLargo(string largoName, SlimeDefinition largoDefinition)
         {
-            // THIS IS ONLY MADE FOR SUN BEAR LARGOS
+            // THIS IS ONLY MADE FOR SUN BEAR LARGOS \\
             SlimeDefinition primaryDef = largoDefinition.BaseSlimes[0];
             SlimeDefinition secondaryDef = largoDefinition.BaseSlimes[1];
             largoDefinition.localizedName = GeneralizedHelper.CreateTranslation("Actor", largoDefinition._pediaPersistenceSuffix, largoName);
@@ -138,7 +139,7 @@ namespace SUNBEAR.Assist
             largoDefinition.prefab.GetComponent<ReactToToyNearby>().SlimeDefinition = largoDefinition;
             largoDefinition.prefab.GetComponent<SlimeVarietyModules>().BaseModule = largoDefinition.BaseModule;
             largoDefinition.prefab.GetComponent<SlimeVarietyModules>().SlimeModules = largoDefinition.SlimeModules;
-            largoDefinition.prefab.GetComponent<Vacuumable>().size = Vacuumable.Size.LARGE;
+            largoDefinition.prefab.GetComponent<Vacuumable>().size = VacuumableSize.LARGE;
 
             largoDefinition.prefab.GetComponent<SlimeAudio>().SlimeSounds = largoDefinition.Sounds;
             largoDefinition.prefab.GetComponent<SlimeHealth>().MaxHealth = primaryDef.prefab.GetComponent<SlimeHealth>().MaxHealth + secondaryDef.prefab.GetComponent<SlimeHealth>().MaxHealth;

@@ -38,15 +38,18 @@ namespace SUNBEAR
         internal static IdentifiableTypeGroup sunBearLargoGroup;
         internal static DamageSourceDefinition sunBearAttack;
 
-        public static void ASDInitialize()
+        public static void PatchInitialize()
         {
             // SUN BEAR LARGO GROUP
             sunBearLargoGroup = ScriptableObject.CreateInstance<IdentifiableTypeGroup>();
             sunBearLargoGroup.hideFlags |= HideFlags.HideAndDontSave;
             sunBearLargoGroup.name = "SunBearLargoGroup";
-            sunBearLargoGroup.memberTypes = new Il2CppSystem.Collections.Generic.List<IdentifiableType>();
-            sunBearLargoGroup.memberGroups = new Il2CppSystem.Collections.Generic.List<IdentifiableTypeGroup>();
-            sunBearLargoGroup.localizedName = new UnityEngine.Localization.LocalizedString();
+
+            sunBearLargoGroup._memberTypes = new();
+            sunBearLargoGroup._memberGroups = new();
+            sunBearLargoGroup._localizedName = new();
+
+            sunBearLargoGroup.AllowedCategories = new();
         }
 
         public static void Load(string sceneName)

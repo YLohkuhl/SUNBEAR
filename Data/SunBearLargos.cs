@@ -22,7 +22,7 @@ namespace SUNBEAR.Data
         internal static List<SlimeDefinition> sunBearLargoDefinitions = new List<SlimeDefinition>();
         internal static List<SlimeDefinition> feralSunBearLargoDefinitions = new List<SlimeDefinition>();
 
-        public static void ASDInitialize()
+        public static void PatchInitialize()
         {
             baseSlimeDefinitions = new List<SlimeDefinition>()
             {

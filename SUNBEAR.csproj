@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
 	<DebugType>embedded</DebugType>
 	<Title>SUNBEAR</Title>
-	<Authors>FruitsyOG</Authors>
-	<VersionPrefix>1.1.2</VersionPrefix>
-	<Copyright>Copyright @ FruitsyOG 2024</Copyright>
+	<Authors>Ylohkuhl</Authors>
+	<VersionPrefix>1.1.3</VersionPrefix>
+	<Copyright>Copyright @ Ylohkuhl 2024</Copyright>
 	<RepositoryUrl>https://github.com/ItzBlueBerries/SUNBEAR</RepositoryUrl>
 	<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
 	<FileVersion>$(VersionPrefix)</FileVersion>
@@ -22,7 +23,8 @@
     <Compile Remove="Components\Archived\SunBearIsolation.cs" />
     <Compile Remove="Components\Archived\SunBearTentacleBite.cs" />
     <Compile Remove="Data\Foods\Archived\Sunberry.cs" />
-    <Compile Remove="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <Compile Remove="Harmony\Main\Archived\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <Compile Remove="Harmony\Main\Archived\Save\Archived\SavedGamePushPatch.cs" />
     <Compile Remove="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
     <Compile Remove="Harmony\Other\Gordo\GordoRewardsSelectActiveRewardPrefabsPatch.cs" />
   </ItemGroup>
@@ -44,7 +46,8 @@
     <None Include="Components\Archived\SunBearIsolation.cs" />
     <None Include="Components\Archived\SunBearTentacleBite.cs" />
     <None Include="Data\Foods\Archived\Sunberry.cs" />
-    <None Include="Harmony\Main\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <None Include="Harmony\Main\Archived\Save\Archived\GameSettingsModelPullPatch.cs" />
+    <None Include="Harmony\Main\Archived\Save\Archived\SavedGamePushPatch.cs" />
     <None Include="Harmony\Other\Gordo\Archived\SnareModelSnareGordoPatch.cs" />
     <None Include="Harmony\Other\Gordo\Archived\GordoRewardsSelectActiveRewardPrefabsPatch.cs" />
   </ItemGroup>

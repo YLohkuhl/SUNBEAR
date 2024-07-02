@@ -57,8 +57,8 @@ namespace SUNBEAR.Assist
             gordoFace.HappyMouth = baseSlimeFace.ExpressionFaces.First(x => x.SlimeExpression == SlimeFace.SlimeExpression.HAPPY).Mouth;
 
             assignedGordo.prefab = assignedGordoPrefab;
-            SRSingleton<GameContext>.Instance.LookupDirector.gordoDict.Add(assignedGordo, assignedGordo.prefab);
-            SRSingleton<GameContext>.Instance.LookupDirector.gordoEntries.items.Add(assignedGordo.prefab);
+            SRSingleton<GameContext>.Instance.LookupDirector._gordoDict.Add(assignedGordo, assignedGordo.prefab);
+            SRSingleton<GameContext>.Instance.LookupDirector._gordoEntries.items.Add(assignedGordo.prefab);
 
             return (assignedGordo, assignedGordo.prefab);
         }

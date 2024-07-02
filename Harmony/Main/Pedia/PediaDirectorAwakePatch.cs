@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static SUNBEAR.Data.Slimes.SunBear;
-using static SUNBEAR.Assist.GeneralizedHelper;
+using static SUNBEAR.Assist.PediaHelper;
 
 namespace SUNBEAR.Harmony
 {
@@ -15,17 +15,11 @@ namespace SUNBEAR.Harmony
     {
         public static void Prefix(PediaDirector __instance)
         {
-            Grown.LoadSlimepedia();
             foreach (var pediaEntry in pediasToPatch)
             {
-                var identPediaEntry = pediaEntry.TryCast<IdentifiablePediaEntry>();
-                if (identPediaEntry)
-                {
-                    __instance._identDict.TryAdd(identPediaEntry.IdentifiableType, identPediaEntry);
-                    if (SunBearPreferences.IsCasualMode() && SunBearPreferences.IsCasualCubs())
-                        if (identPediaEntry.IdentifiableType == sunBearSlime)
-                            __instance._identDict.TryAdd(cubSunBearSlime, identPediaEntry);
-                }
+                if (!pediaEntry)
+                    continue;
+                pediaEntry._unlockInfoProvider = __instance.Cast<IUnlockInfoProvider>();
             }
         }
     }
