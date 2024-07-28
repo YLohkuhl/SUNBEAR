@@ -24,7 +24,7 @@ namespace SUNBEAR.Components
         {
             if (pursuitSpeedFactor == default)
             {
-                if (SunBearPreferences.IsRealisticMode())
+                if (SunBearPreferences.IsRealisticMode.Value)
                     pursuitSpeedFactor = SunBearCache.IsCub(gameObject) ? 1 : 2.5f;
                 else
                     pursuitSpeedFactor = SunBearCache.IsCub(gameObject) ? 0.8f : 2;

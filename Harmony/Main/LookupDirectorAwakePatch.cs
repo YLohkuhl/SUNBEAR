@@ -56,7 +56,7 @@ namespace SUNBEAR.Harmony
             foreach (var identifiableTypeGroup in _registryIdentifiableGroups[1])
                 AddIdentifiableTypeToGroup(director, sunBearPlort, identifiableTypeGroup);
 
-            if (SunBearPreferences.IsCasualMode() && SunBearPreferences.IsCasualCubs())
+            if (SunBearPreferences.IsCasualMode.Value && SunBearPreferences.IsCasualCubs.Value)
                 AddIdentifiableTypeToGroup(director, cubSunBearSlime, Get<IdentifiableTypeGroup>("VaccableBaseSlimeGroup"));
 
             AddIdentifiableTypeToGroup(director, sunBearGordo, Get<IdentifiableTypeGroup>("GordoGroup"));

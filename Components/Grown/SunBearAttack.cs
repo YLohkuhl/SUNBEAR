@@ -142,14 +142,14 @@ namespace SUNBEAR.Components
         {
             if (sunBearCache.IsCubsNearby() && !slimeDefinition.IsLargo)
             {
-                if (SunBearPreferences.IsRealisticMode())
+                if (SunBearPreferences.IsRealisticMode.Value)
                     attackPlayer.DamagePerAttack = 100;
                 else
                     attackPlayer.DamagePerAttack = 80;
             }
             else
             {
-                if (SunBearPreferences.IsRealisticMode())
+                if (SunBearPreferences.IsRealisticMode.Value)
                     attackPlayer.DamagePerAttack = 80;
                 else
                     attackPlayer.DamagePerAttack = 50;
@@ -178,7 +178,7 @@ namespace SUNBEAR.Components
                         if (IsSunBearTarget())
                             currDamageAmount += 20;
 
-                        if (SunBearPreferences.IsRealisticMode())
+                        if (SunBearPreferences.IsRealisticMode.Value)
                             currDamageAmount += 5;
 
                         if (IsTargetHealthLow(currDamageAmount))

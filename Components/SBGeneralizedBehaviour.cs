@@ -43,7 +43,7 @@ namespace SUNBEAR.Components
 
             maxJump = isCub ? 3.3f : 4;
 
-            if (SunBearPreferences.IsRealisticMode())
+            if (SunBearPreferences.IsRealisticMode.Value)
             {
                 scootSpeedFactor = isCub ? 1 : 2.5f;
                 pursuitSpeedFactor = isCub ? 1 : 2.5f;
@@ -58,7 +58,7 @@ namespace SUNBEAR.Components
         void Update()
         {
             AutoSetMovementFields();
-            if (SunBearPreferences.IsRealisticMode())
+            if (SunBearPreferences.IsRealisticMode.Value)
                 SunBearDeath();
         }
 
@@ -109,7 +109,7 @@ namespace SUNBEAR.Components
 
         void SunBearDeath()
         {
-            if (SunBearPreferences.IsRealisticMode())
+            if (SunBearPreferences.IsRealisticMode.Value)
             {
                 if (slimeEmotions)
                 {

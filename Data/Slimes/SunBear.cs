@@ -333,7 +333,7 @@ namespace SUNBEAR.Data.Slimes
                             sunBearSlime.prefab.GetComponent<FleeThreats>().FearProfile = LocalInstances.sunBearSlimeFearProfile;
                             sunBearSlime.prefab.GetComponent<SlimeRandomMove>()._maxJump = 4;
 
-                            if (SunBearPreferences.IsRealisticMode())
+                            if (SunBearPreferences.IsRealisticMode.Value)
                             {
                                 sunBearSlime.prefab.GetComponent<SlimeRandomMove>().ScootSpeedFactor = 2.5f;
                                 sunBearSlime.prefab.GetComponent<GotoConsumable>().PursuitSpeedFactor = 2.5f;
@@ -347,7 +347,7 @@ namespace SUNBEAR.Data.Slimes
                             GameObject instantiatedTriggers = UnityEngine.Object.Instantiate(sunBearTriggers);
                             instantiatedTriggers.transform.parent = sunBearSlime.prefab.transform;
 
-                            if (SunBearPreferences.IsCasualMode())
+                            if (SunBearPreferences.IsCasualMode.Value)
                                 UnityEngine.Object.Destroy(sunBearSlime.prefab.transform.Find("SunBearTriggers(Clone)/SunBearProtectionTrigger").gameObject);
 
                             foreach (Il2CppSystem.Type excludedComponent in grownExcludedComponents)
@@ -359,14 +359,14 @@ namespace SUNBEAR.Data.Slimes
                                     UnityEngine.Object.Destroy(sunBearSlime.prefab.GetComponent(excludedComponent));
                             }
 
-                            if (SunBearPreferences.IsCasualMode())
+                            if (SunBearPreferences.IsCasualMode.Value)
                             {
                                 foreach (Il2CppSystem.Type excludedComponent in casualExcludedComponents)
                                 {
                                     if (excludedComponent == null)
                                         continue;
 
-                                    if (SunBearPreferences.IsCasualWSavageMode() && excludedComponent == Il2CppType.Of<SunBearSavage>())
+                                    if (SunBearPreferences.IsCasualSavage.Value && excludedComponent == Il2CppType.Of<SunBearSavage>())
                                         continue;
 
                                     if (sunBearSlime.prefab.GetComponent(excludedComponent))
@@ -374,7 +374,7 @@ namespace SUNBEAR.Data.Slimes
                                 }
                             }
 
-                            if (SunBearPreferences.IsRealisticMode() && SunBearPreferences.IsRealisticWOSavageMode())
+                            if (SunBearPreferences.IsRealisticMode.Value && SunBearPreferences.IsRealisticNoSavage.Value)
                                 UnityEngine.Object.Destroy(sunBearSlime.prefab.GetComponent<SunBearSavage>());
 
                             UnityEngine.Object.Destroy(sunBearSlime.prefab.GetComponent<AweTowardsLargos>());
@@ -771,7 +771,7 @@ namespace SUNBEAR.Data.Slimes
                             cubSunBearSlime.prefab.GetComponent<FleeThreats>().FearProfile = Get<FearProfile>("slimeStandardFearProfile");
                             cubSunBearSlime.prefab.GetComponent<SlimeRandomMove>()._maxJump = 3.3f;
 
-                            if (SunBearPreferences.IsRealisticMode())
+                            if (SunBearPreferences.IsRealisticMode.Value)
                             {
                                 cubSunBearSlime.prefab.GetComponent<SlimeRandomMove>().ScootSpeedFactor = 1;
                                 cubSunBearSlime.prefab.GetComponent<GotoConsumable>().PursuitSpeedFactor = 1;
@@ -799,7 +799,7 @@ namespace SUNBEAR.Data.Slimes
                             UnityEngine.Object.Destroy(cubSunBearSlime.prefab.transform.FindChild("SunBearTriggers(Clone)/SunBearProtectionTrigger").gameObject);
 
                             // DIET
-                            if (SunBearPreferences.IsCasualMode() && SunBearPreferences.IsCasualCubs())
+                            if (SunBearPreferences.IsCasualMode.Value && SunBearPreferences.IsCasualCubs.Value)
                             {
                                 cubSunBearSlime.Diet = UnityEngine.Object.Instantiate(sunBearSlime).Diet;
                                 cubSunBearSlime.Diet.ProduceIdents = Array.Empty<IdentifiableType>();
