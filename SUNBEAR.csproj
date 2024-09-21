@@ -8,7 +8,7 @@
 	<DebugType>embedded</DebugType>
 	<Title>SUNBEAR</Title>
 	<Authors>Ylohkuhl</Authors>
-	<VersionPrefix>1.1.3</VersionPrefix>
+	<VersionPrefix>1.2.0</VersionPrefix>
 	<Copyright>Copyright @ Ylohkuhl 2024</Copyright>
 	<RepositoryUrl>https://github.com/ItzBlueBerries/SUNBEAR</RepositoryUrl>
 	<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>

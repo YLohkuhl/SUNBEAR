@@ -9,10 +9,12 @@ using Il2CppMonomiPark.SlimeRancher.Pedia;
 using Il2CppInterop.Runtime;
 using SUNBEAR.Components;
 using UnityEngine.SceneManagement;
+using SUNBEAR.Enums;
+using SUNBEAR.Data.Upgrades;
 // using SUNBEAR.Components;
 // using SUNBEAR.Data.Foods;
 
-[assembly: MelonInfo(typeof(BearEntry), "SUNBEAR", "1.1.4", "YLohkuhl", "https://www.nexusmods.com/slimerancher2/mods/66")]
+[assembly: MelonInfo(typeof(BearEntry), "SUNBEAR", "1.2.0", "YLohkuhl", "https://www.nexusmods.com/slimerancher2/mods/66")]
 [assembly: MelonGame("MonomiPark", "SlimeRancher2")]
 [assembly: MelonColor(0, 254, 216, 177)]
 namespace SUNBEAR
@@ -21,8 +23,11 @@ namespace SUNBEAR
     {
         public override void OnInitializeMelon()
         {
-            // -- OTHER
+            // -- PREFERENCES
             SunBearPreferences.Initialize();
+
+            // -- ENUMS
+            LandPlotUpgrade.Initialize();
 
             // -- SLIMES
             SunBear.Initialize();
@@ -42,6 +47,9 @@ namespace SUNBEAR
             // -- OTHER
             LocalAssets.Load(sceneName);
             LocalInstances.Load(sceneName);
+
+            // -- UPGRADES
+            BearFriendly.Load(sceneName);
 
             // -- SLIMES
             SunBear.Grown.Load(sceneName);

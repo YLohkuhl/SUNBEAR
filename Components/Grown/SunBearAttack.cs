@@ -19,6 +19,7 @@ namespace SUNBEAR.Components
     [RegisterTypeInIl2Cpp]
     internal class SunBearAttack : CollidableActorBehaviour
     {
+        private SunBearSavage sunBearSavage;
         private SunBearCache sunBearCache;
         private SunBearGoto sunBearGoto;
         private IdentifiableTypeGroup slimesGroup;
@@ -44,10 +45,13 @@ namespace SUNBEAR.Components
         private bool isTargetBiggerOrEqual;
         private float nextLeapAvail;
 
+        internal bool isInBearFriendlyArea;
+
         public float hoursBetweenEachRefresh = 1;
 
         new void Start()
         {
+            sunBearSavage = GetComponent<SunBearSavage>();
             sunBearCache = GetComponent<SunBearCache>();
             sunBearGoto = GetComponent<SBGeneralizedBehaviour>().sunBearGoto;
             slimesGroup = Get<IdentifiableTypeGroup>("SlimesGroup");
@@ -70,6 +74,9 @@ namespace SUNBEAR.Components
         void Update()
         {
             if (target == null && IsAttacking())
+                StopAttack();
+
+            if (IsAttacking() && IsInFriendlyArea() && !sunBearSavage.IsSavage() && targetIdent != tarrIdentifiableType)
                 StopAttack();
         }
 
@@ -100,6 +107,8 @@ namespace SUNBEAR.Components
         }
 
         public bool IsAttacking() => isCurrentlyAttacking;
+
+        public bool IsInFriendlyArea() => isInBearFriendlyArea;
 
         public bool IsTarrTarget() => targetIdent == tarrIdentifiableType;
 

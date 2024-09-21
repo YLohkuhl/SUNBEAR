@@ -18,9 +18,12 @@ namespace SUNBEAR.Components
 
         private IdentifiableTypeGroup slimesGroup;
         private IdentifiableTypeGroup largoGroup;
+        private IdentifiableType tarrIdent;
         private IdentifiableType targetIdent;
+
         private GameObject slimeObject;
         private GameObject target;
+
         private bool isCurrentlyProtecting;
         private float defaultRadius;
 
@@ -33,6 +36,7 @@ namespace SUNBEAR.Components
             sphereCollider = GetComponent<SphereCollider>();
             slimesGroup = Get<IdentifiableTypeGroup>("SlimesGroup");
             largoGroup = Get<IdentifiableTypeGroup>("LargoGroup");
+            tarrIdent = Get<IdentifiableType>("Tarr");
 
             defaultRadius = sphereCollider.radius;
         }
@@ -44,13 +48,6 @@ namespace SUNBEAR.Components
 
             if (!sunBearAttack.IsAttacking() && IsProtecting())
                 FinishProtection();
-
-            /*if (transform.FindChild("tempVisual").gameObject)
-            {
-                GameObject tempVisual = transform.FindChild("tempVisual").gameObject;
-                float radius = sphereCollider.radius;
-                tempVisual.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
-            }*/
         }
 
         void OnTriggerEnter(Collider collider)
@@ -82,16 +79,16 @@ namespace SUNBEAR.Components
             }
         }
 
-        bool IsProtecting() => isCurrentlyProtecting;
+        public bool IsProtecting() => isCurrentlyProtecting;
 
-        bool IsAgitatedOrHungry()
+        public bool IsAgitatedOrHungry()
         {
             if (slimeEmotions.GetCurr(SlimeEmotions.Emotion.HUNGER) >= 0.99f || slimeEmotions.GetCurr(SlimeEmotions.Emotion.AGITATION) >= 0.9f)
                 return true;
             return false;
         }
 
-        void FinishProtection()
+        internal void FinishProtection()
         {
             if (target != null)
             {
@@ -148,6 +145,8 @@ namespace SUNBEAR.Components
             float rand = UnityEngine.Random.Range(0f, 1f);
             float probability = 0.1f;
 
+            // seriously big code update when like what is this code anymore, not overhauling rn though
+
             if (IsAgitatedOrHungry())
             {
                 probability += 0.2f;
@@ -161,7 +160,7 @@ namespace SUNBEAR.Components
             if (potentialThreatIdent == Get<SlimeDefinition>("SunBear"))
                 probability += 0.3f;
 
-            if (potentialThreatIdent == Get<SlimeDefinition>("Tarr"))
+            if (potentialThreatIdent == tarrIdent)
                 probability += 1;
 
             // MelonLogger.Msg(rand.ToString());

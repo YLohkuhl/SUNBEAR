@@ -125,8 +125,20 @@ namespace SUNBEAR.Data.Slimes
             sunBearCacheTrigger.transform.parent = sunBearTriggers.transform;
 
             // --- CUB TRIGGER
+            // so I don't freaking forget how to visualize this in-game
+            // it scales based on transform which I guess is initially expected due to the default value of the radius being 0.5
+            // but changing this will of course cause it to scale more but the default transform scale is 1 (1,1,1). Change it to 0.5 (0.5,0.5,0.5) to make it more accurate.
+            // It's sort of like reversing their positions in a way. For visualizing in-game, basically reverse it again and add MeshFilter, MeshRenderer, etc in order to visualize the radius you want.
+            // Boom, that works please look at in future when needed thank youuuuu
+            // (and no I don't know the math that it does in the background for this but whatever it works)
+
+            // maybe ill change how this works a bit
+
+            // uhhhh big code update when
+
             GameObject cubTrigger = new GameObject("CubTrigger");
             cubTrigger.transform.parent = sunBearCacheTrigger.transform;
+            cubTrigger.transform.localScale *= 0.5f;
             cubTrigger.AddComponent<SphereCollider>().radius = 10;
             cubTrigger.AddComponent<SunBearCacheTrigger>();
             cubTrigger.GetComponent<SphereCollider>().isTrigger = true;
@@ -134,6 +146,7 @@ namespace SUNBEAR.Data.Slimes
             // --- BEAR TRIGGER
             GameObject bearTrigger = new GameObject("BearTrigger");
             bearTrigger.transform.parent = sunBearCacheTrigger.transform;
+            bearTrigger.transform.localScale *= 0.5f;
             bearTrigger.AddComponent<SphereCollider>().radius = 15;
             bearTrigger.AddComponent<SunBearCacheTrigger>();
             bearTrigger.GetComponent<SphereCollider>().isTrigger = true;
@@ -141,6 +154,7 @@ namespace SUNBEAR.Data.Slimes
             // --- HIVE TRIGGER
             GameObject hiveTrigger = new GameObject("HiveTrigger");
             hiveTrigger.transform.parent = sunBearCacheTrigger.transform;
+            hiveTrigger.transform.localScale *= 0.5f;
             hiveTrigger.AddComponent<SphereCollider>().radius = 18;
             hiveTrigger.AddComponent<SunBearCacheTrigger>();
             hiveTrigger.GetComponent<SphereCollider>().isTrigger = true;
@@ -148,6 +162,7 @@ namespace SUNBEAR.Data.Slimes
             // --- SLIME LARGO TRIGGER
             GameObject slimeLargoTrigger = new GameObject("SlimeLargoTrigger");
             slimeLargoTrigger.transform.parent = sunBearCacheTrigger.transform;
+            slimeLargoTrigger.transform.localScale *= 0.5f;
             slimeLargoTrigger.AddComponent<SphereCollider>().radius = 20;
             slimeLargoTrigger.AddComponent<SunBearCacheTrigger>();
             slimeLargoTrigger.GetComponent<SphereCollider>().isTrigger = true;
